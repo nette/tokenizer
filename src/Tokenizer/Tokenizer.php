@@ -71,7 +71,6 @@ class Tokenizer extends Nette\Object
 			$this->tokens = Strings::matchAll($input, $this->re);
 			$len = 0;
 			$count = count($this->types);
-			$line = 1;
 			foreach ($this->tokens as & $match) {
 				$type = NULL;
 				for ($i = 1; $i <= $count; $i++) {
@@ -81,9 +80,8 @@ class Tokenizer extends Nette\Object
 						$type = $this->types[$i - 1]; break;
 					}
 				}
-				$match = self::createToken($match[0], $type, $line);
+				$match = self::createToken($match[0], $type, $len);
 				$len += strlen($match['value']);
-				$line += substr_count($match['value'], "\n");
 			}
 			if ($len !== strlen($input)) {
 				$errorOffset = $len;
@@ -107,9 +105,9 @@ class Tokenizer extends Nette\Object
 
 
 
-	public static function createToken($value, $type = NULL, $line = NULL)
+	public static function createToken($value, $type = NULL, $offset = NULL)
 	{
-		return array('value' => $value, 'type' => $type, 'line' => $line);
+		return array('value' => $value, 'type' => $type, 'offset' => $offset);
 	}
 
 

@@ -2,18 +2,13 @@
 
 /**
  * This file is part of the Nette Framework (http://nette.org)
- *
  * Copyright (c) 2004 David Grudl (http://davidgrudl.com)
- *
- * For the full copyright and license information, please view
- * the file license.txt that was distributed with this source code.
  */
 
 namespace Nette\Utils;
 
 use Nette,
 	Nette\Utils\Strings;
-
 
 
 /**
@@ -34,7 +29,6 @@ class Tokenizer extends Nette\Object
 	private $types;
 
 
-
 	/**
 	 * @param  array of [(int) symbol type => pattern]
 	 * @param  string  regular expression flag
@@ -45,7 +39,6 @@ class Tokenizer extends Nette\Object
 		$keys = array_keys($patterns);
 		$this->types = $keys === range(0, count($patterns) - 1) ? FALSE : $keys;
 	}
-
 
 
 	/**
@@ -90,7 +83,6 @@ class Tokenizer extends Nette\Object
 		}
 		return $tokens;
 	}
-
 
 
 	/**

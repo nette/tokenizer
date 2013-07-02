@@ -4,15 +4,12 @@
  * Test: Nette\Utils\Tokenizer::tokenize simple
  *
  * @author     David Grudl
- * @package    Nette\Utils
  */
 
 use Nette\Utils\Tokenizer;
 
 
-
 require __DIR__ . '/../bootstrap.php';
-
 
 
 $tokenizer = new Tokenizer(array(

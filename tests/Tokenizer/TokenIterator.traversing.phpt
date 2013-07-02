@@ -4,16 +4,13 @@
  * Test: Nette\Utils\TokenIterator traversing
  *
  * @author     David Grudl
- * @package    Nette\Utils
  */
 
 use Nette\Utils\Tokenizer,
 	Nette\Utils\TokenIterator;
 
 
-
 require __DIR__ . '/../bootstrap.php';
-
 
 
 test(function() {
@@ -43,7 +40,6 @@ test(function() {
 	Assert::true( $traverser->isPrev() );
 	Assert::false( $traverser->isNext() );
 });
-
 
 
 test(function() {
@@ -86,7 +82,6 @@ test(function() {
 	Assert::same( 1, $traverser->position );
 
 
-
 	$traverser->position = 0;
 	Assert::null( $traverser->nextToken(T_STRING) );
 	Assert::same( 0, $traverser->position );
@@ -104,7 +99,6 @@ test(function() {
 	Assert::same( 0, $traverser->position );
 	Assert::same( array(array(' ', 3, T_WHITESPACE)), $traverser->nextUntil(T_STRING, T_DNUMBER) );
 	Assert::same( 1, $traverser->position );
-
 
 
 	$traverser->position = 2;
@@ -126,7 +120,6 @@ test(function() {
 	Assert::same( array(), $traverser->nextUntil(T_STRING, T_DNUMBER, T_WHITESPACE) );
 	Assert::same( 2, $traverser->position );
 });
-
 
 
 test(function() {

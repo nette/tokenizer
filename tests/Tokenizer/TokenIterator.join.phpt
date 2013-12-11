@@ -7,7 +7,8 @@
  */
 
 use Nette\Utils\Tokenizer,
-	Nette\Utils\TokenIterator;
+	Nette\Utils\TokenIterator,
+	Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';

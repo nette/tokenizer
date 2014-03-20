@@ -15,7 +15,7 @@ use Nette;
  *
  * @author     David Grudl
  */
-class TokenIterator extends Nette\Object
+class TokenIterator
 {
 	/** @var array */
 	public $tokens;

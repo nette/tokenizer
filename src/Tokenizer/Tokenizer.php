@@ -7,8 +7,7 @@
 
 namespace Nette\Utils;
 
-use Nette,
-	Nette\Utils\Strings;
+use Nette;
 
 
 /**
@@ -16,7 +15,7 @@ use Nette,
  *
  * @author     David Grudl
  */
-class Tokenizer extends Nette\Object
+class Tokenizer
 {
 	const VALUE = 0,
 		OFFSET = 1,
@@ -49,7 +48,7 @@ class Tokenizer extends Nette\Object
 	public function tokenize($input)
 	{
 		if ($this->types) {
-			$tokens = Strings::matchAll($input, $this->re);
+			preg_match_all($this->re, $input, $tokens, PREG_SET_ORDER);
 			$len = 0;
 			$count = count($this->types);
 			foreach ($tokens as & $match) {
@@ -69,9 +68,9 @@ class Tokenizer extends Nette\Object
 			}
 
 		} else {
-			$tokens = Strings::split($input, $this->re, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_OFFSET_CAPTURE);
+			$tokens = preg_split($this->re, $input, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_OFFSET_CAPTURE | PREG_SPLIT_DELIM_CAPTURE);
 			$last = end($tokens);
-			if ($tokens && !Strings::match($last[0], $this->re)) {
+			if ($tokens && !preg_match($this->re, $last[0])) {
 				$errorOffset = $last[1];
 			}
 		}

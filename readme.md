@@ -58,7 +58,7 @@ Let's try to parse a simple annotation from PHPDoc and create an object from it.
 This should work on simple annotations, right? Now let's define few classes to demonstrate.
 
 ```php
-class Author extends \Nette\Object
+class Author
 {
 	public $name;
 
@@ -68,7 +68,7 @@ class Author extends \Nette\Object
 	}
 }
 
-class Package extends \Nette\Object
+class Package
 {
 	public $name;
 
@@ -91,7 +91,7 @@ $input = "
 Let's create a `Parser` class that will accept the string and return an array of objects. It will be very naive and simple.
 
 ```php
-class Parser extends Nette\Object
+class Parser
 {
 	const T_AT = 1;
 	const T_WHITESPACE = 2;

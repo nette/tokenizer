@@ -16,6 +16,8 @@ $tokenizer = new Tokenizer(array(
 ));
 ```
 
+*Hint: In case you are wondering where the T_ constants come from, they are [internal type](http://php.net/manual/tokens.php) used for parsing code. They cover most of the common token names we usually need. Keep in mind their value is not guaranteed so don't use numbers for comparison.*
+
 Now when we give it a string, it will return array of tokens.
 
 ```php

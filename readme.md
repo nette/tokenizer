@@ -16,11 +16,12 @@ $tokenizer = new Tokenizer(array(
 ));
 ```
 
+*Hint: In case you are wondering where the T_ constants come from, they are [internal type](http://php.net/manual/tokens.php) used for parsing code. They cover most of the common token names we usually need. Keep in mind their value is not guaranteed so don't use numbers for comparison.*
+
 Now when we give it a string, it will return array of tokens.
 
 ```php
 $tokens = $tokenizer->tokenize("say \n123");
-dump($tokens);
 ```
 
 The resulting array of tokens would look like this.
@@ -58,7 +59,7 @@ Let's try to parse a simple annotation from PHPDoc and create an object from it.
 This should work on simple annotations, right? Now let's define few classes to demonstrate.
 
 ```php
-class Author extends \Nette\Object
+class Author
 {
 	public $name;
 
@@ -68,7 +69,7 @@ class Author extends \Nette\Object
 	}
 }
 
-class Package extends \Nette\Object
+class Package
 {
 	public $name;
 
@@ -91,7 +92,7 @@ $input = "
 Let's create a `Parser` class that will accept the string and return an array of objects. It will be very naive and simple.
 
 ```php
-class Parser extends Nette\Object
+class Parser
 {
 	const T_AT = 1;
 	const T_WHITESPACE = 2;

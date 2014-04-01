@@ -151,7 +151,7 @@ And then, there is another `->joinUntil()`, that searches for next `@`. This spe
 
 And there we go, we've parsed one whole annotation! Now we can create an instance of class for that specific annotation and pass it the parsed value. The `$content` probably ends with whitespaces, so we have to trim it.
 
-Try copypasting the code and running it, if you `dump()` the `$annotations` variable, it should return some similar output.
+Try copypasting the code and running it, if you [`dump()`](https://github.com/nette/tracy#variables-dumping) the `$annotations` variable, it should return some similar output.
 
 ```
 array (2)

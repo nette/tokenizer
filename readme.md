@@ -20,7 +20,6 @@ Now when we give it a string, it will return array of tokens.
 
 ```php
 $tokens = $tokenizer->tokenize("say \n123");
-dump($tokens);
 ```
 
 The resulting array of tokens would look like this.

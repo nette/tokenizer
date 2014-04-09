@@ -11,7 +11,7 @@ use Nette;
 
 
 /**
- * Simple lexical analyser. Internal class.
+ * Simple lexical analyser.
  *
  * @author     David Grudl
  */
@@ -24,13 +24,13 @@ class Tokenizer
 	/** @var string */
 	private $re;
 
-	/** @var array */
+	/** @var array|FALSE */
 	private $types;
 
 
 	/**
-	 * @param  array of [(int) symbol type => pattern]
-	 * @param  string  regular expression flag
+	 * @param  array of [(int|string) token type => (string) pattern]
+	 * @param  string  regular expression flags
 	 */
 	public function __construct(array $patterns, $flags = '')
 	{
@@ -41,9 +41,10 @@ class Tokenizer
 
 
 	/**
-	 * Tokenize string.
+	 * Tokenizes string.
 	 * @param  string
 	 * @return array
+	 * @throws TokenizerException
 	 */
 	public function tokenize($input)
 	{
@@ -86,8 +87,9 @@ class Tokenizer
 
 	/**
 	 * Returns position of token in input string.
-	 * @param  int token number
-	 * @return array [line, column]
+	 * @param  string
+	 * @param  int
+	 * @return array of [line, column]
 	 */
 	public static function getCoordinates($text, $offset)
 	{

@@ -6,7 +6,7 @@ Tokenizer is a tool that uses regular expressions to split given string into tok
 
 ## String tokenization
 
-Let's create a simple tokenizer, that separates strings to numbers, whitespaces and letters.
+Let's create a simple tokenizer that separates strings to numbers, whitespaces and letters.
 
 ```php
 $tokenizer = new Tokenizer(array(
@@ -48,7 +48,7 @@ Simple, isn't it?
 
 ## Processing the tokens
 
-Now that we know how to create tokens from string, lets effectively process them using `TokenIterator`. The `TokenIterator` is not a standard iterator, you cannot `foreach` over it, it doesn't implement `Traversable` interface. But it has a lot of really awesome methods if you need to traverse tokens!
+Now we know how to create tokens from string. Let's effectively process them using `TokenIterator`. The `TokenIterator` is not a standard iterator. You cannot `foreach` over it, it doesn't implement `Traversable` interface. But it has a lot of really awesome methods if you need to traverse tokens!
 
 Let's try to parse a simple annotation from PHPDoc and create an object from it. What regular expressions do we need for tokens? All the annotations start with `@`, then there is a name, whitespace and it's value.
 
@@ -143,39 +143,41 @@ $parser = new Parser();
 $annotations = $parser->parse($input);
 ```
 
-So what the `parse` method does? It iterates over the tokens and searches for `@` which is the symbol annotations start with. Calling `->nextToken()` moves the cursor to the next token. Method `->isCurrent()` checks if the current token at the cursor is the given type. Then, if the `@` is found, the `parse` method calls `parseAnnotation()` which expects the annotations to be in a very speficic format.
+So what the `parse()` method does? It iterates over the tokens and searches for `@` which is the symbol annotations start with. Calling `nextToken()` moves the cursor to the next token. Method `isCurrent()` checks if the current token at the cursor is the given type. Then, if the `@` is found, the `parse()` method calls `parseAnnotation()` which expects the annotations to be in a very speficic format.
 
-First, using the method `->joinUntil()`, the iterator keeps moving the cursor and appending the string to the buffer until it finds token of required type, then stops and returns the buffer output. Because there is only one token of type `T_STRING` at that given position and it's `'name'`, there will be value `'name'` in variable `$name`.
+First, using the method `joinUntil()`, the iterator keeps moving the cursor and appending the string to the buffer until it finds token of required type, then stops and returns the buffer output. Because there is only one token of type `T_STRING` at that given position and it's `'name'`, there will be value `'name'` in variable `$name`.
 
-Method `->nextUntil()` is similar like `->joinUntil()`, but it has no buffer, it only moves the cursor until it finds the token. So this call simply skips all the whitespaces after annotation name.
+Method `nextUntil()` is similar like `joinUntil()` but it has no buffer. It only moves the cursor until it finds the token. So this call simply skips all the whitespaces after annotation name.
 
-And then, there is another `->joinUntil()`, that searches for next `@`. This specific call will return `"David Grudl\n    "`.
+And then, there is another `joinUntil()`, that searches for next `@`. This specific call will return `"David Grudl\n    "`.
 
 And there we go, we've parsed one whole annotation! Now we can create an instance of class for that specific annotation and pass it the parsed value. The `$content` probably ends with whitespaces, so we have to trim it.
 
-Try copypasting the code and running it, if you `dump()` the `$annotations` variable, it should return some similar output.
+Try copypasting the code and running it. If you dump the `$annotations` variable it should return some similar output.
 
 ```
 array (2)
-   0 => Author #1625
-   |  name => "David Grudl" (11)
-   1 => Package #db81
-   |  name => "Nette" (5)
+   0 => Author
+   |  name => "David Grudl"
+   |
+   1 => Package
+      name => "Nette"
 ```
 
 ## TokenIterator methods
 
-The iterator can return current token using method `currentToken()`, or only it's value using `currentValue()`.
+The iterator can return current token using method `currentToken()` or only it's value using `currentValue()`.
 
 `nextToken()` moves the cursor and returns the token. If you give it no arguments, it simply returns next token.
 
-`nextValue()` is just like `nextToken()`, but it only returns the token value.
+`nextValue()` is just like `nextToken()` but it only returns the token value.
 
-Most of the methods also accept multiple arguments, so you can search for multiple types at once.
+Most of the methods also accept multiple arguments so you can search for multiple types at once.
 
 ```php
 // iterate until a string or a whitespace is found, then stop and return the following token
 $token = $iterator->nextToken(T_STRING, T_WHITESPACE);
+
 // give me next token
 $token = $iterator->nextToken();
 ```
@@ -189,24 +191,24 @@ $token = $iterator->nextToken('@');
 
 `nextUntil()` moves the cursor and returns the array of all the tokens it sees until it finds the desired token, but it stops before the token. It can accept multiple arguments.
 
-`joinUntil` is similar to `nextUntil()`, but joins the token values in a buffer and when it finds the desired token, it stops before it and returns the buffer contents.
+`joinUntil()` is similar to `nextUntil()`, but joins the token values in a buffer and when it finds the desired token, it stops before it and returns the buffer contents.
 
-`joinAll` simply concatenates all the remaining token values and returns it. It moves the cursor to the end of the token stream
+`joinAll()` simply concatenates all the remaining token values and returns it. It moves the cursor to the end of the token stream
 
-`nextAll` is just like `joinAll`, but it returns array of the tokens.
+`nextAll()` is just like `joinAll()`, but it returns array of the tokens.
 
-`isCurrent` checks if the current token or the current token's value is equal to one of given arguments.
+`isCurrent()` checks if the current token or the current token's value is equal to one of given arguments.
 
 ```php
 // is the current token '@' or type of T_AT?
 $iterator->isCurrent(T_AT, '@');
 ```
 
-`isNext` is just like `isCurrent` but it checks the next token.
+`isNext()` is just like `isCurrent()` but it checks the next token.
 
-`isPrev` is just like `isCurrent` but it checks the previous token.
+`isPrev()` is just like `isCurrent()` but it checks the previous token.
 
-And the last method `reset` resets the cursor, so you can iterate the token stream again.
+And the last method `reset()` resets the cursor, so you can iterate the token stream again.
 
 
 

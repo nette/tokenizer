@@ -34,13 +34,16 @@ array(
 )
 ```
 
-Also, you should use constants from `Tokenizer` to access the individual values.
+Also, you should use constants from `Tokenizer` to access the individual values or expand them using `list()`.
 
 ```php
 $firstToken = $tokens[0];
 echo $firstToken[Tokenizer::VALUE]; // say
 echo $firstToken[Tokenizer::OFFSET]; // 0
 echo $firstToken[Tokenizer::TYPE]; // 308, which is the value of T_STRING
+
+// or shorter
+list($value, $offset, $type) = $tokens[0];
 ```
 
 Simple, isn't it?

@@ -23,7 +23,7 @@ class Tokenizer
 	/** @var int  Token offset index */
 	const OFFSET = 1;
 
-	/** @var string  Token type index */
+	/** @var int  Token type index */
 	const TYPE = 2;
 
 	/** @var string */

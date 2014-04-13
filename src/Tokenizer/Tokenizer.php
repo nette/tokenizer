@@ -17,13 +17,8 @@ use Nette;
  */
 class Tokenizer
 {
-	/** @var int  Token value index */
 	const VALUE = 0;
-
-	/** @var int  Token offset index */
 	const OFFSET = 1;
-
-	/** @var int  Token type index */
 	const TYPE = 2;
 
 	/** @var string */
@@ -34,7 +29,7 @@ class Tokenizer
 
 
 	/**
-	 * @param  array  array of [(int) token type => (string) $pattern]
+	 * @param  array   array of [int|string  name => string  pattern]
 	 * @param  string  regular expression flags
 	 */
 	public function __construct(array $patterns, $flags = '')

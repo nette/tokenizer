@@ -186,7 +186,7 @@ class TokenIterator
 
 	/**
 	 * Looks for (first) (not) wanted tokens.
-	 * @param array array of desired token types
+	 * @param array  array of desired token types or values
 	 * @param  bool
 	 * @param  bool
 	 * @param  bool

@@ -11,7 +11,7 @@ use Nette;
 
 
 /**
- * Traversing helper. Internal class.
+ * Traversing helper.
  *
  * @author     David Grudl
  */
@@ -62,7 +62,7 @@ class TokenIterator
 
 	/**
 	 * Returns next token.
-	 * @param  desired token
+	 * @param  int|string  (optional) desired token type or value
 	 * @return array|NULL
 	 */
 	public function nextToken()
@@ -73,7 +73,7 @@ class TokenIterator
 
 	/**
 	 * Returns next token value.
-	 * @param  desired token
+	 * @param  int|string  (optional) desired token type or value
 	 * @return string|NULL
 	 */
 	public function nextValue()
@@ -84,7 +84,7 @@ class TokenIterator
 
 	/**
 	 * Returns all next tokens.
-	 * @param  desired token
+	 * @param  int|string  (optional) desired token type or value
 	 * @return array[]
 	 */
 	public function nextAll()
@@ -95,7 +95,7 @@ class TokenIterator
 
 	/**
 	 * Returns all next tokens until it sees a token with the given value.
-	 * @param  tokens
+	 * @param  int|string  token type or value to stop at
 	 * @return array[]
 	 */
 	public function nextUntil($arg)
@@ -106,7 +106,7 @@ class TokenIterator
 
 	/**
 	 * Returns concatenation of all next tokens.
-	 * @param  desired token
+	 * @param  int|string  (optional) token type or value to be joined
 	 * @return string
 	 */
 	public function joinAll()
@@ -117,7 +117,7 @@ class TokenIterator
 
 	/**
 	 * Returns concatenation of all next tokens until it sees a token with the given value.
-	 * @param  tokens
+	 * @param  int|string  token type or value to stop at
 	 * @return string
 	 */
 	public function joinUntil($arg)
@@ -127,8 +127,8 @@ class TokenIterator
 
 
 	/**
-	 * Checks the current token.
-	 * @param  token
+	 * Checks the current token type.
+	 * @param  int|string  checked token type or value
 	 * @return bool
 	 */
 	public function isCurrent($arg)
@@ -145,7 +145,7 @@ class TokenIterator
 
 	/**
 	 * Checks the next token.
-	 * @param  token
+	 * @param  int|string  (optional) checked token type or value
 	 * @return bool
 	 */
 	public function isNext()
@@ -156,7 +156,7 @@ class TokenIterator
 
 	/**
 	 * Checks the previous token.
-	 * @param  token
+	 * @param  int|string  (optional) checked token type or value
 	 * @return bool
 	 */
 	public function isPrev()
@@ -175,6 +175,9 @@ class TokenIterator
 	}
 
 
+	/**
+	 * Moves cursor to next position.
+	 */
 	protected function next()
 	{
 		$this->position++;
@@ -183,6 +186,12 @@ class TokenIterator
 
 	/**
 	 * Looks for (first) (not) wanted tokens.
+	 * @param array  array of desired token types or values
+	 * @param  bool
+	 * @param  bool
+	 * @param  bool
+	 * @param  bool
+	 * @param  bool
 	 * @return mixed
 	 */
 	protected function scan($wanted, $onlyFirst, $advance, $strings = FALSE, $until = FALSE, $prev = FALSE)

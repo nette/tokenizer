@@ -45,7 +45,8 @@ echo $firstToken[Tokenizer::TYPE]; // 308, which is the value of T_STRING
 // or shorter
 list($value, $offset, $type) = $tokens[0];
 
-foreach ($tokens as list($value, $offset, $type)) { // since PHP 5.5 you can use list in foreach
+// since PHP 5.5 you can do even this
+foreach ($tokens as list($value, $offset, $type)) {
     // ...
 }
 ```

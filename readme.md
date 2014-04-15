@@ -42,7 +42,7 @@ echo $firstToken[Tokenizer::VALUE]; // say
 echo $firstToken[Tokenizer::OFFSET]; // 0
 echo $firstToken[Tokenizer::TYPE]; // 308, which is the value of T_STRING
 
-// or use shortcut
+// or shorter
 list($value, $offset, $type) = $tokens[0];
 
 foreach ($tokens as list($value, $offset, $type)) { // since PHP 5.5 you can use list in foreach

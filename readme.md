@@ -34,7 +34,7 @@ array(
 )
 ```
 
-Also, you should use constants from `Tokenizer` to access the individual values or expand them using list.
+Also, you should use constants from `Tokenizer` to access the individual values or expand them using `list`.
 
 ```php
 $firstToken = $tokens[0];

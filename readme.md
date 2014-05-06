@@ -1,6 +1,9 @@
 Nette Tokenizer
 ===============
 
+[![Downloads this Month](https://img.shields.io/packagist/dm/nette/tokenizer.svg)](https://packagist.org/packages/nette/tokenizer)
+[![Build Status](https://travis-ci.org/nette/tokenizer.svg?branch=master)](https://travis-ci.org/nette/tokenizer)
+
 Tokenizer is a tool that uses regular expressions to split given string into tokens. What the hell is that good for, you might ask? Well, you can create your own languages! Tokenizer is used in [Latte](https://github.com/nette/latte) for example.
 
 
@@ -212,9 +215,3 @@ $iterator->isCurrent(T_AT, '@');
 `isPrev()` is just like `isCurrent()` but it checks the previous token.
 
 And the last method `reset()` resets the cursor, so you can iterate the token stream again.
-
-
-
------
-
-[![Build Status](https://secure.travis-ci.org/nette/tokenizer.png?branch=master)](http://travis-ci.org/nette/tokenizer)

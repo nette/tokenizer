@@ -3,6 +3,8 @@ Nette Tokenizer
 
 [![Downloads this Month](https://img.shields.io/packagist/dm/nette/tokenizer.svg)](https://packagist.org/packages/nette/tokenizer)
 [![Build Status](https://travis-ci.org/nette/tokenizer.svg?branch=master)](https://travis-ci.org/nette/tokenizer)
+[![Latest Stable Version](https://poser.pugx.org/nette/tokenizer/v/stable)](https://github.com/nette/tokenizer/releases)
+[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/tokenizer/blob/master/license.md)
 
 Tokenizer is a tool that uses regular expressions to split given string into tokens. What the hell is that good for, you might ask? Well, you can create your own languages! Tokenizer is used in [Latte](https://github.com/nette/latte) for example.
 

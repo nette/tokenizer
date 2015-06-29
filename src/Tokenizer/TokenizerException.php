@@ -11,9 +11,6 @@
 
 namespace Nette\Utils;
 
-use Nette;
-
-
 
 /**
  * The exception that indicates tokenizer error.

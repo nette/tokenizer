@@ -7,8 +7,6 @@
 
 namespace Nette\Utils;
 
-use Nette;
-
 
 /**
  * Simple lexical analyser.

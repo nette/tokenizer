@@ -12,8 +12,6 @@ use Nette;
 
 /**
  * Traversing helper.
- *
- * @author     David Grudl
  */
 class TokenIterator
 {

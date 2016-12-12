@@ -162,7 +162,7 @@ class TokenIterator
 
 
 	/**
-	 * @return self
+	 * @return static
 	 */
 	public function reset()
 	{

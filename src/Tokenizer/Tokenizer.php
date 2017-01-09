@@ -48,7 +48,7 @@ class Tokenizer
 			preg_match_all($this->re, $input, $tokens, PREG_SET_ORDER);
 			$len = 0;
 			$count = count($this->types);
-			foreach ($tokens as & $match) {
+			foreach ($tokens as &$match) {
 				$type = NULL;
 				for ($i = 1; $i <= $count; $i++) {
 					if (!isset($match[$i])) {

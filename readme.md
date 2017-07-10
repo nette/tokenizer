@@ -9,6 +9,13 @@ Nette Tokenizer
 
 Tokenizer is a tool that uses regular expressions to split given string into tokens. What the hell is that good for, you might ask? Well, you can create your own languages! Tokenizer is used in [Latte](https://github.com/nette/latte) for example.
 
+Install it using Composer:
+
+```
+composer require nette/tokenizer
+```
+
+The last stable release requires PHP version 5.3 or newer (is compatible with PHP 7.0 and 7.1).
 
 ## String tokenization
 

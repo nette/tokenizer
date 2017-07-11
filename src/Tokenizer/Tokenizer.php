@@ -20,7 +20,7 @@ class Tokenizer
 	/** @var string */
 	private $re;
 
-	/** @var array|FALSE */
+	/** @var array|false */
 	private $types;
 
 
@@ -32,7 +32,7 @@ class Tokenizer
 	{
 		$this->re = '~(' . implode(')|(', $patterns) . ')~A' . $flags;
 		$keys = array_keys($patterns);
-		$this->types = $keys === range(0, count($patterns) - 1) ? FALSE : $keys;
+		$this->types = $keys === range(0, count($patterns) - 1) ? false : $keys;
 	}
 
 
@@ -49,11 +49,11 @@ class Tokenizer
 			$len = 0;
 			$count = count($this->types);
 			foreach ($tokens as &$match) {
-				$type = NULL;
+				$type = null;
 				for ($i = 1; $i <= $count; $i++) {
 					if (!isset($match[$i])) {
 						break;
-					} elseif ($match[$i] != NULL) {
+					} elseif ($match[$i] != null) {
 						$type = $this->types[$i - 1];
 						break;
 					}

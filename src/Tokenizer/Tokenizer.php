@@ -54,7 +54,8 @@ class Tokenizer
 					if (!isset($match[$i])) {
 						break;
 					} elseif ($match[$i] != NULL) {
-						$type = $this->types[$i - 1]; break;
+						$type = $this->types[$i - 1];
+						break;
 					}
 				}
 				$match = array(self::VALUE => $match[0], self::OFFSET => $len, self::TYPE => $type);
@@ -92,5 +93,4 @@ class Tokenizer
 		$text = substr($text, 0, $offset);
 		return array(substr_count($text, "\n") + 1, $offset - strrpos("\n" . $text, "\n") + 1);
 	}
-
 }

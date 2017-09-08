@@ -10,6 +10,7 @@ namespace Nette\Utils;
 
 /**
  * Traversing helper.
+ * @deprecated use similar Nette\Tokenizer\Stream
  */
 class TokenIterator
 {

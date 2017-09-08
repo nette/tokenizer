@@ -10,6 +10,7 @@ namespace Nette\Utils;
 
 /**
  * Simple lexical analyser.
+ * @deprecated use similar Nette\Tokenizer\Tokenizer
  */
 class Tokenizer
 {

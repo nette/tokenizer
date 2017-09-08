@@ -9,7 +9,7 @@ namespace Nette\Utils;
 
 
 /**
- * The exception that indicates tokenizer error.
+ * @deprecated use Nette\Tokenizer\Exception
  */
 class TokenizerException extends \Exception
 {

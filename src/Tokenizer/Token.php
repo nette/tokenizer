@@ -25,7 +25,7 @@ class Token
 	public $offset;
 
 
-	public function __construct($value, $type, $offset)
+	public function __construct(string $value, $type, int $offset)
 	{
 		$this->value = $value;
 		$this->type = $type;

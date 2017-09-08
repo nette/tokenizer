@@ -15,12 +15,12 @@ require __DIR__ . '/../bootstrap.php';
 
 
 test(function () {
-	$tokenizer = new Tokenizer([
+	$tokenizer = @new Tokenizer([ // class is deprecated
 		T_DNUMBER => '\d+',
 		T_WHITESPACE => '\s+',
 		T_STRING => '\w+',
 	]);
-	$traverser = new TokenIterator($tokenizer->tokenize('say 123'));
+	$traverser = @new TokenIterator($tokenizer->tokenize('say 123')); // class is deprecated
 
 	Assert::false($traverser->isPrev());
 	Assert::true($traverser->isNext());
@@ -44,12 +44,12 @@ test(function () {
 
 
 test(function () {
-	$tokenizer = new Tokenizer([
+	$tokenizer = @new Tokenizer([ // class is deprecated
 		T_DNUMBER => '\d+',
 		T_WHITESPACE => '\s+',
 		T_STRING => '\w+',
 	]);
-	$traverser = new TokenIterator($tokenizer->tokenize('say 123'));
+	$traverser = @new TokenIterator($tokenizer->tokenize('say 123')); // class is deprecated
 	$traverser->ignored[] = T_WHITESPACE;
 
 	Assert::same(-1, $traverser->position);
@@ -124,12 +124,12 @@ test(function () {
 
 
 test(function () {
-	$tokenizer = new Tokenizer([
+	$tokenizer = @new Tokenizer([ // class is deprecated
 		'\d+',
 		'\s+',
 		'\w+',
 	]);
-	$traverser = new TokenIterator($tokenizer->tokenize('say 123'));
+	$traverser = @new TokenIterator($tokenizer->tokenize('say 123')); // class is deprecated
 	Assert::null($traverser->nextToken('s'));
 	Assert::same(['say', 0], $traverser->nextToken('say'));
 	Assert::same([' ', 3], $traverser->nextToken());

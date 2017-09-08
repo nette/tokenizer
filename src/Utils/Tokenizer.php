@@ -34,6 +34,7 @@ class Tokenizer
 	 */
 	public function __construct(array $patterns, string $flags = '')
 	{
+		trigger_error(__CLASS__ . ' is deprecated, use similar Nette\Tokenizer\Tokenizer', E_USER_DEPRECATED);
 		$this->re = '~(' . implode(')|(', $patterns) . ')~A' . $flags;
 		$keys = array_keys($patterns);
 		$this->types = $keys === range(0, count($patterns) - 1) ? false : $keys;

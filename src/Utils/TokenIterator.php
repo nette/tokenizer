@@ -31,6 +31,7 @@ class TokenIterator
 	 */
 	public function __construct(array $tokens)
 	{
+		trigger_error(__CLASS__ . ' is deprecated, use similar Nette\Tokenizer\Stream', E_USER_DEPRECATED);
 		$this->tokens = $tokens;
 	}
 

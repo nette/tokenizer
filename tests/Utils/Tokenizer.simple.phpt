@@ -13,7 +13,7 @@ use Tester\Assert;
 require __DIR__ . '/../bootstrap.php';
 
 
-$tokenizer = new Tokenizer([
+$tokenizer = @new Tokenizer([ // class is deprecated
 	'\d+',
 	'\s+',
 	'\w+',

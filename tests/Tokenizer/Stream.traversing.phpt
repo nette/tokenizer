@@ -4,6 +4,8 @@
  * Test: Nette\Tokenizer\Stream traversing
  */
 
+declare(strict_types=1);
+
 use Nette\Tokenizer\Token;
 use Nette\Tokenizer\Tokenizer;
 use Tester\Assert;

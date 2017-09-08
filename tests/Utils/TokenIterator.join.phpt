@@ -4,6 +4,8 @@
  * Test: Nette\Utils\TokenIterator traversing
  */
 
+declare(strict_types=1);
+
 use Nette\Utils\TokenIterator;
 use Nette\Utils\Tokenizer;
 use Tester\Assert;

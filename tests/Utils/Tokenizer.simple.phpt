@@ -4,6 +4,8 @@
  * Test: Nette\Utils\Tokenizer::tokenize simple
  */
 
+declare(strict_types=1);
+
 use Nette\Utils\Tokenizer;
 use Tester\Assert;
 

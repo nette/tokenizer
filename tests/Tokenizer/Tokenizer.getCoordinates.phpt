@@ -4,6 +4,8 @@
  * Test: Nette\Tokenizer\Tokenizer::getCoordinates
  */
 
+declare(strict_types=1);
+
 use Nette\Tokenizer\Tokenizer;
 use Tester\Assert;
 

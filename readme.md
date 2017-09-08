@@ -15,13 +15,15 @@ Install it using Composer:
 composer require nette/tokenizer
 ```
 
-The last stable release requires PHP version 5.3 or newer (is compatible with PHP 7.0 and 7.1).
+The last stable release requires PHP version 5.3 or newer (is compatible with PHP up to 7.2).
 
 ## String tokenization
 
 Let's create a simple tokenizer that separates strings to numbers, whitespaces and letters.
 
 ```php
+use Nette\Utils\Tokenizer;
+
 $tokenizer = new Tokenizer(array(
 	T_DNUMBER => '\d+',
 	T_WHITESPACE => '\s+',
@@ -51,9 +53,9 @@ Also, you should use constants from `Tokenizer` to access the individual values 
 
 ```php
 $firstToken = $tokens[0];
-echo $firstToken[Tokenizer::VALUE]; // say
-echo $firstToken[Tokenizer::OFFSET]; // 0
-echo $firstToken[Tokenizer::TYPE]; // 308, which is the value of T_STRING
+echo $firstToken[Tokenizer::VALUE]; // token value: say
+echo $firstToken[Tokenizer::OFFSET]; // position in string: 0
+echo $firstToken[Tokenizer::TYPE]; // token type: value of T_STRING
 
 // or shorter
 list($value, $offset, $type) = $tokens[0];
@@ -64,13 +66,15 @@ Simple, isn't it?
 
 ## Processing the tokens
 
-Now we know how to create tokens from string. Let's effectively process them using `TokenIterator`. The `TokenIterator` is not a standard iterator. You cannot `foreach` over it, it doesn't implement `Traversable` interface. But it has a lot of really awesome methods if you need to traverse tokens!
+Now we know how to create tokens from string. Let's effectively process them using `TokenIterator`. It is not a standard iterator. You cannot `foreach` over it, it doesn't implement `Traversable` interface. But it has a lot of really awesome methods if you need to traverse tokens!
 
 Let's try to parse a simple annotation from PHPDoc and create an object from it. What regular expressions do we need for tokens? All the annotations start with `@`, then there is a name, whitespace and it's value.
 
 - `@` for the annotation start
-- `\\s+` for whitespaces
-- `\\w+` for strings
+- `\s+` for whitespaces
+- `\w+` for strings
+
+(Never use capturing subpatterns in Tokenizer's regular expressions like `'(ab)+c'`, use only non-capturing ones `'(?:ab)+c'`.)
 
 This should work on simple annotations, right? Now let's define few classes to demonstrate.
 
@@ -99,33 +103,36 @@ class Package
 and input string that we will try to parse.
 
 ```php
-$input = "
+$input = '
 	@author David Grudl
 	@package Nette
-";
+';
 ```
 
 Let's create a `Parser` class that will accept the string and return an array of objects. It will be very naive and simple.
 
 ```php
+use Nette\Utils\Tokenizer;
+use Nette\Utils\TokenIterator;
+
 class Parser
 {
 	const T_AT = 1;
 	const T_WHITESPACE = 2;
 	const T_STRING = 3;
 
-	/** @var \Nette\Utils\Tokenizer */
+	/** @var Tokenizer */
 	private $tokenizer;
 
-	/** @var \Nette\Utils\TokenIterator */
+	/** @var TokenIterator */
 	private $iterator;
 
 	public function __construct()
 	{
 		$this->tokenizer = new Tokenizer(array(
 			self::T_AT => '@',
-			self::T_WHITESPACE => '\\s+',
-			self::T_STRING => '\\w+',
+			self::T_WHITESPACE => '\s+',
+			self::T_STRING => '\w+',
 		));
 	}
 
@@ -161,7 +168,7 @@ $annotations = $parser->parse($input);
 
 So what the `parse()` method does? It iterates over the tokens and searches for `@` which is the symbol annotations start with. Calling `nextToken()` moves the cursor to the next token. Method `isCurrent()` checks if the current token at the cursor is the given type. Then, if the `@` is found, the `parse()` method calls `parseAnnotation()` which expects the annotations to be in a very speficic format.
 
-First, using the method `joinUntil()`, the iterator keeps moving the cursor and appending the string to the buffer until it finds token of required type, then stops and returns the buffer output. Because there is only one token of type `T_STRING` at that given position and it's `'name'`, there will be value `'name'` in variable `$name`.
+First, using the method `joinUntil()`, the iterator keeps moving the cursor and appending the tokens values to the buffer until it finds token of required type, then stops and returns the buffer output. Because there is only one token of type `T_STRING` at that given position and it's `'name'`, there will be value `'name'` in variable `$name`.
 
 Method `nextUntil()` is similar like `joinUntil()` but it has no buffer. It only moves the cursor until it finds the token. So this call simply skips all the whitespaces after annotation name.
 
@@ -207,7 +214,7 @@ $token = $iterator->nextToken('@');
 
 `nextUntil()` moves the cursor and returns the array of all the tokens it sees until it finds the desired token, but it stops before the token. It can accept multiple arguments.
 
-`joinUntil()` is similar to `nextUntil()`, but joins the token values in a buffer and when it finds the desired token, it stops before it and returns the buffer contents.
+`joinUntil()` is similar to `nextUntil()`, but concatenates all the tokens it passed through and returns string.
 
 `joinAll()` simply concatenates all the remaining token values and returns it. It moves the cursor to the end of the token stream
 

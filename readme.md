@@ -15,7 +15,7 @@ Install it using Composer:
 composer require nette/tokenizer
 ```
 
-The release 2.3 requires PHP version 5.4 or newer (is compatible with PHP up to 7.2).
+The release 2.3 requires PHP version 5.4 or newer (is compatible with PHP up to 7.2). The release 3.0 requires PHP 7.1.
 
 ## String tokenization
 

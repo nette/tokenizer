@@ -33,13 +33,13 @@ $tokenizer = new Tokenizer([
 
 *Hint: In case you are wondering where the T_ constants come from, they are [internal type](http://php.net/manual/tokens.php) used for parsing code. They cover most of the common token names we usually need. Keep in mind their value is not guaranteed so don't use numbers for comparison.*
 
-Now when we give it a string, it will return array of tokens.
+Now when we give it a string, it will return stream (Nette\Tokenizer\Stream) of tokens.
 
 ```php
-$tokens = $tokenizer->tokenize("say \n123");
+$stream = $tokenizer->tokenize("say \n123");
 ```
 
-The resulting array of tokens would look like this.
+The resulting array of tokens `$stream->tokens` would look like this.
 
 ```php
 [
@@ -52,13 +52,13 @@ The resulting array of tokens would look like this.
 Also, you should use constants from `Tokenizer` to access the individual values or expand them using `list()`.
 
 ```php
-$firstToken = $tokens[0];
+$firstToken = $stream->tokens[0];
 echo $firstToken[Tokenizer::VALUE]; // token value: say
 echo $firstToken[Tokenizer::OFFSET]; // position in string: 0
 echo $firstToken[Tokenizer::TYPE]; // token type: value of T_STRING
 
 // or shorter
-list($value, $offset, $type) = $tokens[0];
+list($value, $offset, $type) = $stream->tokens[0];
 ```
 
 Simple, isn't it?
@@ -138,7 +138,7 @@ class Parser
 
 	public function parse($input)
 	{
-		$this->stream = new Stream($this->tokenizer->tokenize($input));
+		$this->stream = $this->tokenizer->tokenize($input);
 
 		$result = [];
 		while ($this->stream->nextToken()) {

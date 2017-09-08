@@ -4,7 +4,6 @@
  * Test: Nette\Tokenizer\Stream traversing
  */
 
-use Nette\Tokenizer\Stream;
 use Nette\Tokenizer\Tokenizer;
 use Tester\Assert;
 
@@ -18,7 +17,7 @@ test(function () {
 		T_WHITESPACE => '\s+',
 		T_STRING => '\w+',
 	]);
-	$stream = new Stream($tokenizer->tokenize('say 123'));
+	$stream = $tokenizer->tokenize('say 123');
 
 	Assert::false($stream->isPrev());
 	Assert::true($stream->isNext());
@@ -47,7 +46,7 @@ test(function () {
 		T_WHITESPACE => '\s+',
 		T_STRING => '\w+',
 	]);
-	$stream = new Stream($tokenizer->tokenize('say 123'));
+	$stream = $tokenizer->tokenize('say 123');
 	$stream->ignored[] = T_WHITESPACE;
 
 	Assert::same(-1, $stream->position);

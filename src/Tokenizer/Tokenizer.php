@@ -38,7 +38,7 @@ class Tokenizer
 	/**
 	 * Tokenizes string.
 	 * @param  string
-	 * @return array
+	 * @return Stream
 	 * @throws Exception
 	 */
 	public function tokenize($input)
@@ -64,7 +64,7 @@ class Tokenizer
 			$token = str_replace("\n", '\n', substr($input, $len, 10));
 			throw new Exception("Unexpected '$token' on line $line, column $col.");
 		}
-		return $tokens;
+		return new Stream($tokens);
 	}
 
 

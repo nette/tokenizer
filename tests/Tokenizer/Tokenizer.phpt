@@ -16,12 +16,12 @@ $tokenizer = new Tokenizer([
 	T_WHITESPACE => '\s+',
 	T_STRING => '\w+',
 ]);
-$tokens = $tokenizer->tokenize("say \n123");
+$stream = $tokenizer->tokenize("say \n123");
 Assert::same([
 	[Tokenizer::VALUE => 'say', Tokenizer::OFFSET => 0, Tokenizer::TYPE => T_STRING],
 	[Tokenizer::VALUE => " \n", Tokenizer::OFFSET => 3, Tokenizer::TYPE => T_WHITESPACE],
 	[Tokenizer::VALUE => '123', Tokenizer::OFFSET => 5, Tokenizer::TYPE => T_DNUMBER],
-], $tokens);
+], $stream->tokens);
 
 Assert::exception(function () use ($tokenizer) {
 	$tokenizer->tokenize('say 123;');

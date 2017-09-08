@@ -4,6 +4,7 @@
  * Test: Nette\Tokenizer\Tokenizer::tokenize
  */
 
+use Nette\Tokenizer\Token;
 use Nette\Tokenizer\Tokenizer;
 use Tester\Assert;
 
@@ -17,10 +18,10 @@ $tokenizer = new Tokenizer([
 	T_STRING => '\w+',
 ]);
 $stream = $tokenizer->tokenize("say \n123");
-Assert::same([
-	[Tokenizer::VALUE => 'say', Tokenizer::OFFSET => 0, Tokenizer::TYPE => T_STRING],
-	[Tokenizer::VALUE => " \n", Tokenizer::OFFSET => 3, Tokenizer::TYPE => T_WHITESPACE],
-	[Tokenizer::VALUE => '123', Tokenizer::OFFSET => 5, Tokenizer::TYPE => T_DNUMBER],
+Assert::equal([
+	new Token('say', T_STRING, 0),
+	new Token(" \n", T_WHITESPACE, 3),
+	new Token('123', T_DNUMBER, 5),
 ], $stream->tokens);
 
 Assert::exception(function () use ($tokenizer) {

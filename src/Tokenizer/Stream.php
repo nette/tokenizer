@@ -13,7 +13,7 @@ namespace Nette\Tokenizer;
  */
 class Stream
 {
-	/** @var array */
+	/** @var Token[] */
 	public $tokens;
 
 	/** @var int */
@@ -24,7 +24,7 @@ class Stream
 
 
 	/**
-	 * @param array[]
+	 * @param  Token[]
 	 */
 	public function __construct(array $tokens)
 	{
@@ -34,7 +34,7 @@ class Stream
 
 	/**
 	 * Returns current token.
-	 * @return array|null
+	 * @return Token|null
 	 */
 	public function currentToken()
 	{
@@ -51,7 +51,7 @@ class Stream
 	public function currentValue()
 	{
 		return isset($this->tokens[$this->position])
-			? $this->tokens[$this->position][Tokenizer::VALUE]
+			? $this->tokens[$this->position]->value
 			: null;
 	}
 
@@ -59,7 +59,7 @@ class Stream
 	/**
 	 * Returns next token.
 	 * @param  int|string  (optional) desired token type or value
-	 * @return array|null
+	 * @return Token|null
 	 */
 	public function nextToken()
 	{
@@ -81,7 +81,7 @@ class Stream
 	/**
 	 * Returns all next tokens.
 	 * @param  int|string  (optional) desired token type or value
-	 * @return array[]
+	 * @return Token[]
 	 */
 	public function nextAll()
 	{
@@ -92,7 +92,7 @@ class Stream
 	/**
 	 * Returns all next tokens until it sees a given token type or value.
 	 * @param  int|string  token type or value to stop before
-	 * @return array[]
+	 * @return Token[]
 	 */
 	public function nextUntil($arg)
 	{
@@ -134,8 +134,8 @@ class Stream
 		}
 		$args = func_get_args();
 		$token = $this->tokens[$this->position];
-		return in_array($token[Tokenizer::VALUE], $args, true)
-			|| in_array($token[Tokenizer::TYPE], $args, true);
+		return in_array($token->value, $args, true)
+			|| in_array($token->type, $args, true);
 	}
 
 
@@ -203,20 +203,20 @@ class Stream
 			}
 
 			$token = $this->tokens[$pos];
-			if (!$wanted || (in_array($token[Tokenizer::VALUE], $wanted, true) || in_array($token[Tokenizer::TYPE], $wanted, true)) ^ $until) {
+			if (!$wanted || (in_array($token->value, $wanted, true) || in_array($token->type, $wanted, true)) ^ $until) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();
 				}
 
 				if ($onlyFirst) {
-					return $strings ? $token[Tokenizer::VALUE] : $token;
+					return $strings ? $token->value : $token;
 				} elseif ($strings) {
-					$res .= $token[Tokenizer::VALUE];
+					$res .= $token->value;
 				} else {
 					$res[] = $token;
 				}
 
-			} elseif ($until || !in_array($token[Tokenizer::TYPE], $this->ignored, true)) {
+			} elseif ($until || !in_array($token->type, $this->ignored, true)) {
 				return $res;
 			}
 			$pos += $prev ? -1 : 1;

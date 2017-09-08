@@ -33,7 +33,7 @@ $tokenizer = new Tokenizer([
 
 *Hint: In case you are wondering where the T_ constants come from, they are [internal type](http://php.net/manual/tokens.php) used for parsing code. They cover most of the common token names we usually need. Keep in mind their value is not guaranteed so don't use numbers for comparison.*
 
-Now when we give it a string, it will return stream (Nette\Tokenizer\Stream) of tokens.
+Now when we give it a string, it will return stream (Nette\Tokenizer\Stream) of tokens (Nette\Tokenizer\Token).
 
 ```php
 $stream = $tokenizer->tokenize("say \n123");
@@ -43,22 +43,19 @@ The resulting array of tokens `$stream->tokens` would look like this.
 
 ```php
 [
-	['say', 0, T_STRING],
-	[" \n", 3, T_WHITESPACE],
-	['123', 5, T_DNUMBER],
+	new Token('say', T_STRING, 0),
+	new Token(" \n", T_WHITESPACE, 3),
+	new Token('123', T_DNUMBER, 5),
 ]
 ```
 
-Also, you should use constants from `Tokenizer` to access the individual values or expand them using `list()`.
+Also, you can access the individual properties of token:
 
 ```php
 $firstToken = $stream->tokens[0];
-echo $firstToken[Tokenizer::VALUE]; // token value: say
-echo $firstToken[Tokenizer::OFFSET]; // position in string: 0
-echo $firstToken[Tokenizer::TYPE]; // token type: value of T_STRING
-
-// or shorter
-list($value, $offset, $type) = $stream->tokens[0];
+echo $firstToken->value; // say
+echo $firstToken->type; // value of T_STRING
+echo $firstToken->offset; // position in string: 0
 ```
 
 Simple, isn't it?
@@ -162,7 +159,7 @@ class Parser
 ```
 
 ```php
-$parser = new Parser();
+$parser = new Parser;
 $annotations = $parser->parse($input);
 ```
 

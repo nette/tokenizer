@@ -4,6 +4,7 @@
  * Test: Nette\Tokenizer\Stream traversing
  */
 
+use Nette\Tokenizer\Token;
 use Nette\Tokenizer\Tokenizer;
 use Tester\Assert;
 
@@ -22,9 +23,9 @@ test(function () {
 	Assert::false($stream->isPrev());
 	Assert::true($stream->isNext());
 	Assert::same([], $stream->nextAll(T_DNUMBER));
-	Assert::same([
-		['say', 0, T_STRING],
-		[' ', 3, T_WHITESPACE],
+	Assert::equal([
+		new Token('say', T_STRING, 0),
+		new Token(' ', T_WHITESPACE, 3),
 	], $stream->nextUntil(T_DNUMBER));
 	Assert::true($stream->isCurrent(T_WHITESPACE));
 	Assert::true($stream->isPrev());
@@ -34,7 +35,7 @@ test(function () {
 	Assert::true($stream->isNext(T_DNUMBER));
 	Assert::true($stream->isNext(T_STRING, T_DNUMBER));
 	Assert::same([], $stream->nextUntil(T_STRING, T_DNUMBER, T_WHITESPACE));
-	Assert::same([['123', 4, T_DNUMBER]], $stream->nextAll());
+	Assert::equal([new Token('123', T_DNUMBER, 4)], $stream->nextAll());
 	Assert::true($stream->isPrev());
 	Assert::false($stream->isNext());
 });
@@ -50,32 +51,32 @@ test(function () {
 	$stream->ignored[] = T_WHITESPACE;
 
 	Assert::same(-1, $stream->position);
-	Assert::same(['say', 0, T_STRING], $stream->nextToken());
+	Assert::equal(new Token('say', T_STRING, 0), $stream->nextToken());
 	Assert::same(0, $stream->position);
 
 	$stream->position = -1;
 	Assert::null($stream->nextToken(T_DNUMBER));
 	Assert::same(-1, $stream->position);
-	Assert::same(['say', 0, T_STRING], $stream->nextToken(T_STRING));
+	Assert::equal(new Token('say', T_STRING, 0), $stream->nextToken(T_STRING));
 	Assert::same(0, $stream->position);
 
 	$stream->position = -1;
 	Assert::same([], $stream->nextAll(T_DNUMBER));
 	Assert::same(-1, $stream->position);
-	Assert::same([['say', 0, T_STRING]], $stream->nextAll(T_STRING));
+	Assert::equal([new Token('say', T_STRING, 0)], $stream->nextAll(T_STRING));
 	Assert::same(0, $stream->position);
 
 	$stream->position = -1;
 	Assert::same([], $stream->nextUntil(T_STRING));
 	Assert::same(-1, $stream->position);
-	Assert::same([['say', 0, T_STRING]], $stream->nextUntil(T_WHITESPACE));
+	Assert::equal([new Token('say', T_STRING, 0)], $stream->nextUntil(T_WHITESPACE));
 	Assert::same(0, $stream->position);
 
 	$stream->position = -1;
 	Assert::same(-1, $stream->position);
-	Assert::same([
-		['say', 0, T_STRING],
-		[' ', 3, T_WHITESPACE],
+	Assert::equal([
+		new Token('say', T_STRING, 0),
+		new Token(' ', T_WHITESPACE, 3),
 	], $stream->nextUntil(T_DNUMBER));
 	Assert::same(1, $stream->position);
 
@@ -83,19 +84,19 @@ test(function () {
 	$stream->position = 0;
 	Assert::null($stream->nextToken(T_STRING));
 	Assert::same(0, $stream->position);
-	Assert::same(['123', 4, T_DNUMBER], $stream->nextToken(T_STRING, T_DNUMBER));
+	Assert::equal(new Token('123', T_DNUMBER, 4), $stream->nextToken(T_STRING, T_DNUMBER));
 	Assert::same(2, $stream->position);
 
 	$stream->position = 0;
 	Assert::same([], $stream->nextAll(T_STRING));
 	Assert::same(0, $stream->position);
-	Assert::same([['123', 4, T_DNUMBER]], $stream->nextAll(T_STRING, T_DNUMBER));
+	Assert::equal([new Token('123', T_DNUMBER, 4)], $stream->nextAll(T_STRING, T_DNUMBER));
 	Assert::same(2, $stream->position);
 
 	$stream->position = 0;
 	Assert::same([], $stream->nextUntil(T_WHITESPACE));
 	Assert::same(0, $stream->position);
-	Assert::same([[' ', 3, T_WHITESPACE]], $stream->nextUntil(T_STRING, T_DNUMBER));
+	Assert::equal([new Token(' ', T_WHITESPACE, 3)], $stream->nextUntil(T_STRING, T_DNUMBER));
 	Assert::same(1, $stream->position);
 
 

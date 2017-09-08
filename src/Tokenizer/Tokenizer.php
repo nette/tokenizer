@@ -13,10 +13,6 @@ namespace Nette\Tokenizer;
  */
 class Tokenizer
 {
-	const VALUE = 0,
-		OFFSET = 1,
-		TYPE = 2;
-
 	/** @var string */
 	private $re;
 
@@ -46,18 +42,18 @@ class Tokenizer
 		preg_match_all($this->re, $input, $tokens, PREG_SET_ORDER);
 		$len = 0;
 		$count = count($this->types);
-		foreach ($tokens as &$match) {
+		foreach ($tokens as &$token) {
 			$type = null;
 			for ($i = 1; $i <= $count; $i++) {
-				if (!isset($match[$i])) {
+				if (!isset($token[$i])) {
 					break;
-				} elseif ($match[$i] != null) {
+				} elseif ($token[$i] != null) {
 					$type = $this->types[$i - 1];
 					break;
 				}
 			}
-			$match = [self::VALUE => $match[0], self::OFFSET => $len, self::TYPE => $type];
-			$len += strlen($match[self::VALUE]);
+			$token = new Token($token[0], $type, $len);
+			$len += strlen($token->value);
 		}
 		if ($len !== strlen($input)) {
 			list($line, $col) = $this->getCoordinates($input, $len);

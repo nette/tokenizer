@@ -178,9 +178,6 @@ class Stream
 		$pos = $this->position + ($prev ? -1 : 1);
 		do {
 			if (!isset($this->tokens[$pos])) {
-				if (!$wanted && $advance && !$prev && $pos <= count($this->tokens)) {
-					$this->next();
-				}
 				return $res;
 			}
 

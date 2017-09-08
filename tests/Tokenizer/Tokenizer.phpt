@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test: Nette\Tokenizer\Tokenizer::tokenize with names
+ * Test: Nette\Tokenizer\Tokenizer::tokenize
  */
 
 use Nette\Tokenizer\Tokenizer;

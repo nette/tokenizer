@@ -135,7 +135,7 @@ class Stream
 		$args = func_get_args();
 		$token = $this->tokens[$this->position];
 		return in_array($token[Tokenizer::VALUE], $args, true)
-			|| (isset($token[Tokenizer::TYPE]) && in_array($token[Tokenizer::TYPE], $args, true));
+			|| in_array($token[Tokenizer::TYPE], $args, true);
 	}
 
 
@@ -203,8 +203,7 @@ class Stream
 			}
 
 			$token = $this->tokens[$pos];
-			$type = isset($token[Tokenizer::TYPE]) ? $token[Tokenizer::TYPE] : null;
-			if (!$wanted || (in_array($token[Tokenizer::VALUE], $wanted, true) || in_array($type, $wanted, true)) ^ $until) {
+			if (!$wanted || (in_array($token[Tokenizer::VALUE], $wanted, true) || in_array($token[Tokenizer::TYPE], $wanted, true)) ^ $until) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();
 				}
@@ -217,7 +216,7 @@ class Stream
 					$res[] = $token;
 				}
 
-			} elseif ($until || !in_array($type, $this->ignored, true)) {
+			} elseif ($until || !in_array($token[Tokenizer::TYPE], $this->ignored, true)) {
 				return $res;
 			}
 			$pos += $prev ? -1 : 1;

@@ -119,16 +119,3 @@ test(function () {
 	Assert::same([], $stream->nextUntil(T_STRING, T_DNUMBER, T_WHITESPACE));
 	Assert::same(2, $stream->position);
 });
-
-
-test(function () {
-	$tokenizer = new Tokenizer([
-		'\d+',
-		'\s+',
-		'\w+',
-	]);
-	$traverser = new Stream($tokenizer->tokenize('say 123'));
-	Assert::null($traverser->nextToken('s'));
-	Assert::same(['say', 0], $traverser->nextToken('say'));
-	Assert::same([' ', 3], $traverser->nextToken());
-});

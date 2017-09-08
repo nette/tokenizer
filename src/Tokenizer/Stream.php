@@ -54,63 +54,63 @@ class Stream
 
 	/**
 	 * Returns next token.
-	 * @param  int|string  (optional) desired token type or value
+	 * @param  int|string  desired token type or value
 	 */
-	public function nextToken(): ?Token
+	public function nextToken(...$args): ?Token
 	{
-		return $this->scan(func_get_args(), true, true); // onlyFirst, advance
+		return $this->scan($args, true, true); // onlyFirst, advance
 	}
 
 
 	/**
 	 * Returns next token value.
-	 * @param  int|string  (optional) desired token type or value
+	 * @param  int|string  desired token type or value
 	 */
-	public function nextValue(): ?string
+	public function nextValue(...$args): ?string
 	{
-		return $this->scan(func_get_args(), true, true, true); // onlyFirst, advance, strings
+		return $this->scan($args, true, true, true); // onlyFirst, advance, strings
 	}
 
 
 	/**
 	 * Returns all next tokens.
-	 * @param  int|string  (optional) desired token type or value
+	 * @param  int|string  desired token type or value
 	 * @return Token[]
 	 */
-	public function nextAll(): array
+	public function nextAll(...$args): array
 	{
-		return $this->scan(func_get_args(), false, true); // advance
+		return $this->scan($args, false, true); // advance
 	}
 
 
 	/**
 	 * Returns all next tokens until it sees a given token type or value.
-	 * @param  int|string  token type or value to stop before
+	 * @param  int|string  token type or value to stop before (required)
 	 * @return Token[]
 	 */
-	public function nextUntil($arg): array
+	public function nextUntil(...$args): array
 	{
-		return $this->scan(func_get_args(), false, true, false, true); // advance, until
+		return $this->scan($args, false, true, false, true); // advance, until
 	}
 
 
 	/**
 	 * Returns concatenation of all next token values.
-	 * @param  int|string  (optional) token type or value to be joined
+	 * @param  int|string  token type or value to be joined
 	 */
-	public function joinAll(): string
+	public function joinAll(...$args): string
 	{
-		return $this->scan(func_get_args(), false, true, true); // advance, strings
+		return $this->scan($args, false, true, true); // advance, strings
 	}
 
 
 	/**
 	 * Returns concatenation of all next tokens until it sees a given token type or value.
-	 * @param  int|string  token type or value to stop before
+	 * @param  int|string  token type or value to stop before (required)
 	 */
-	public function joinUntil($arg): string
+	public function joinUntil(...$args): string
 	{
-		return $this->scan(func_get_args(), false, true, true, true); // advance, strings, until
+		return $this->scan($args, false, true, true, true); // advance, strings, until
 	}
 
 
@@ -118,12 +118,11 @@ class Stream
 	 * Checks the current token.
 	 * @param  int|string  token type or value
 	 */
-	public function isCurrent($arg): bool
+	public function isCurrent(...$args): bool
 	{
 		if (!isset($this->tokens[$this->position])) {
 			return false;
 		}
-		$args = func_get_args();
 		$token = $this->tokens[$this->position];
 		return in_array($token->value, $args, true)
 			|| in_array($token->type, $args, true);
@@ -132,21 +131,21 @@ class Stream
 
 	/**
 	 * Checks the next token existence.
-	 * @param  int|string  (optional) token type or value
+	 * @param  int|string  token type or value
 	 */
-	public function isNext(): bool
+	public function isNext(...$args): bool
 	{
-		return (bool) $this->scan(func_get_args(), true, false); // onlyFirst
+		return (bool) $this->scan($args, true, false); // onlyFirst
 	}
 
 
 	/**
 	 * Checks the previous token existence.
-	 * @param  int|string  (optional) token type or value
+	 * @param  int|string  token type or value
 	 */
-	public function isPrev(): bool
+	public function isPrev(...$args): bool
 	{
-		return (bool) $this->scan(func_get_args(), true, false, false, false, true); // onlyFirst, prev
+		return (bool) $this->scan($args, true, false, false, false, true); // onlyFirst, prev
 	}
 
 

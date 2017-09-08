@@ -22,7 +22,7 @@ The release 2.3 requires PHP version 5.4 or newer (is compatible with PHP up to 
 Let's create a simple tokenizer that separates strings to numbers, whitespaces and letters.
 
 ```php
-use Nette\Utils\Tokenizer;
+use Nette\Tokenizer\Tokenizer;
 
 $tokenizer = new Tokenizer([
 	T_DNUMBER => '\d+',
@@ -66,7 +66,7 @@ Simple, isn't it?
 
 ## Processing the tokens
 
-Now we know how to create tokens from string. Let's effectively process them using `TokenIterator`. It is not a standard iterator. You cannot `foreach` over it, it doesn't implement `Traversable` interface. But it has a lot of really awesome methods if you need to traverse tokens!
+Now we know how to create tokens from string. Let's effectively process them using `Nette\Tokenizer\Stream`. It has a lot of really awesome methods if you need to traverse tokens!
 
 Let's try to parse a simple annotation from PHPDoc and create an object from it. What regular expressions do we need for tokens? All the annotations start with `@`, then there is a name, whitespace and it's value.
 
@@ -112,8 +112,8 @@ $input = '
 Let's create a `Parser` class that will accept the string and return an array of objects. It will be very naive and simple.
 
 ```php
-use Nette\Utils\Tokenizer;
-use Nette\Utils\TokenIterator;
+use Nette\Tokenizer\Tokenizer;
+use Nette\Tokenizer\Stream;
 
 class Parser
 {
@@ -124,8 +124,8 @@ class Parser
 	/** @var Tokenizer */
 	private $tokenizer;
 
-	/** @var TokenIterator */
-	private $iterator;
+	/** @var Stream */
+	private $stream;
 
 	public function __construct()
 	{
@@ -138,11 +138,11 @@ class Parser
 
 	public function parse($input)
 	{
-		$this->iterator = new TokenIterator($this->tokenizer->tokenize($input));
+		$this->stream = new Stream($this->tokenizer->tokenize($input));
 
 		$result = [];
-		while ($this->iterator->nextToken()) {
-			if ($this->iterator->isCurrent(self::T_AT)) {
+		while ($this->stream->nextToken()) {
+			if ($this->stream->isCurrent(self::T_AT)) {
 				$result[] = $this->parseAnnotation();
 			}
 		}
@@ -152,9 +152,9 @@ class Parser
 
 	protected function parseAnnotation()
 	{
-		$name = $this->iterator->joinUntil(self::T_WHITESPACE);
-		$this->iterator->nextUntil(self::T_STRING);
-		$content = $this->iterator->joinUntil(self::T_AT);
+		$name = $this->stream->joinUntil(self::T_WHITESPACE);
+		$this->stream->nextUntil(self::T_STRING);
+		$content = $this->stream->joinUntil(self::T_AT);
 
 		return new $name(trim($content));
 	}
@@ -168,7 +168,7 @@ $annotations = $parser->parse($input);
 
 So what the `parse()` method does? It iterates over the tokens and searches for `@` which is the symbol annotations start with. Calling `nextToken()` moves the cursor to the next token. Method `isCurrent()` checks if the current token at the cursor is the given type. Then, if the `@` is found, the `parse()` method calls `parseAnnotation()` which expects the annotations to be in a very speficic format.
 
-First, using the method `joinUntil()`, the iterator keeps moving the cursor and appending the tokens values to the buffer until it finds token of required type, then stops and returns the buffer output. Because there is only one token of type `T_STRING` at that given position and it's `'name'`, there will be value `'name'` in variable `$name`.
+First, using the method `joinUntil()`, the stream keeps moving the cursor and appending the tokens values to the buffer until it finds token of required type, then stops and returns the buffer output. Because there is only one token of type `T_STRING` at that given position and it's `'name'`, there will be value `'name'` in variable `$name`.
 
 Method `nextUntil()` is similar like `joinUntil()` but it has no buffer. It only moves the cursor until it finds the token. So this call simply skips all the whitespaces after annotation name.
 
@@ -187,9 +187,9 @@ array (2)
       name => "Nette"
 ```
 
-## TokenIterator methods
+## Stream methods
 
-The iterator can return current token using method `currentToken()` or only it's value using `currentValue()`.
+The stream can return current token using method `currentToken()` or only it's value using `currentValue()`.
 
 `nextToken()` moves the cursor and returns the token. If you give it no arguments, it simply returns next token.
 
@@ -199,17 +199,17 @@ Most of the methods also accept multiple arguments so you can search for multipl
 
 ```php
 // iterate until a string or a whitespace is found, then stop and return the following token
-$token = $iterator->nextToken(T_STRING, T_WHITESPACE);
+$token = $stream->nextToken(T_STRING, T_WHITESPACE);
 
 // give me next token
-$token = $iterator->nextToken();
+$token = $stream->nextToken();
 ```
 
 You can also search by the token value.
 
 ```php
 // move the cursor until you find token containing only '@', then stop and return it
-$token = $iterator->nextToken('@');
+$token = $stream->nextToken('@');
 ```
 
 `nextUntil()` moves the cursor and returns the array of all the tokens it sees until it finds the desired token, but it stops before the token. It can accept multiple arguments.
@@ -224,7 +224,7 @@ $token = $iterator->nextToken('@');
 
 ```php
 // is the current token '@' or type of T_AT?
-$iterator->isCurrent(T_AT, '@');
+$stream->isCurrent(T_AT, '@');
 ```
 
 `isNext()` is just like `isCurrent()` but it checks the next token.

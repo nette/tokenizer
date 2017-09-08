@@ -35,6 +35,15 @@ class Stream
 
 
 	/**
+	 * @return Token[]
+	 */
+	public function getTokens(): array
+	{
+		return $this->tokens;
+	}
+
+
+	/**
 	 * Returns current token.
 	 */
 	public function currentToken(): ?Token

@@ -27,4 +27,4 @@ Assert::same([
 
 Assert::exception(function () use ($tokenizer) {
 	$tokenizer->tokenize('say 123;');
-}, 'Nette\Utils\TokenizerException', "Unexpected ';' on line 1, column 8.");
+}, Nette\Utils\TokenizerException::class, "Unexpected ';' on line 1, column 8.");

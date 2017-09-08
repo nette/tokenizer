@@ -40,9 +40,7 @@ class TokenIterator
 	 */
 	public function currentToken(): ?array
 	{
-		return isset($this->tokens[$this->position])
-			? $this->tokens[$this->position]
-			: null;
+		return $this->tokens[$this->position] ?? null;
 	}
 
 
@@ -51,9 +49,7 @@ class TokenIterator
 	 */
 	public function currentValue(): ?string
 	{
-		return isset($this->tokens[$this->position])
-			? $this->tokens[$this->position][Tokenizer::VALUE]
-			: null;
+		return $this->tokens[$this->position][Tokenizer::VALUE] ?? null;
 	}
 
 
@@ -191,7 +187,7 @@ class TokenIterator
 			}
 
 			$token = $this->tokens[$pos];
-			$type = isset($token[Tokenizer::TYPE]) ? $token[Tokenizer::TYPE] : null;
+			$type = $token[Tokenizer::TYPE] ?? null;
 			if (!$wanted || (in_array($token[Tokenizer::VALUE], $wanted, true) || in_array($type, $wanted, true)) ^ $until) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();

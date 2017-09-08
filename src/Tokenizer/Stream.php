@@ -95,6 +95,45 @@ class Stream
 
 
 	/**
+	 * Returns next token or throws exception.
+	 * @param  int|string  desired token type or value
+	 * @throws Exception
+	 */
+	public function consumeToken(...$args): Token
+	{
+		if ($token = $this->scan($args, true, true)) { // onlyFirst, advance
+			return $token;
+		}
+
+		$pos = $this->position + 1;
+		while (($next = $this->tokens[$pos] ?? null) && in_array($next->type, $this->ignored, true)) {
+			$pos++; // skip ignored
+		}
+		if (!$next) {
+			throw new Exception('Unexpected end of string');
+		}
+
+		$s = '';
+		do {
+			$s = $this->tokens[$pos]->value . $s;
+		} while ($pos--);
+		[$line, $col] = Tokenizer::getCoordinates($s, $next->offset);
+		throw new Exception("Unexpected '$next->value' on line $line, column $col.");
+	}
+
+
+	/**
+	 * Returns next token value or throws exception.
+	 * @param  int|string  desired token type or value
+	 * @throws Exception
+	 */
+	public function consumeValue(...$args): string
+	{
+		return $this->consumeToken(...$args)->value;
+	}
+
+
+	/**
 	 * Returns concatenation of all next token values.
 	 * @param  int|string  token type or value to be joined
 	 */

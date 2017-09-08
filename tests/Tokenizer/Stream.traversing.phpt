@@ -121,3 +121,44 @@ test(function () {
 	Assert::same([], $stream->nextUntil(T_STRING, T_DNUMBER, T_WHITESPACE));
 	Assert::same(2, $stream->position);
 });
+
+
+test(function () {
+	$tokenizer = new Tokenizer([
+		T_DNUMBER => '\d+',
+		T_WHITESPACE => '\s+',
+		T_STRING => '\w+',
+	]);
+	$stream = $tokenizer->tokenize("\nsay\n 123");
+	$stream->ignored[] = T_WHITESPACE;
+
+	$stream->position = -1;
+	Assert::equal(new Token("\n", T_WHITESPACE, 0), $stream->consumeToken());
+	Assert::same(0, $stream->position);
+
+	$stream->position = -1;
+	Assert::exception(function () use ($stream) {
+		$stream->consumeToken(T_DNUMBER);
+	}, Nette\Tokenizer\Exception::class, "Unexpected 'say' on line 2, column 1.");
+	Assert::same(-1, $stream->position);
+	Assert::equal(new Token('say', T_STRING, 1), $stream->consumeToken(T_STRING));
+	Assert::same(1, $stream->position);
+
+	$stream->position = 2;
+	Assert::exception(function () use ($stream) {
+		$stream->consumeToken(T_STRING);
+	}, Nette\Tokenizer\Exception::class, "Unexpected '123' on line 3, column 2.");
+	Assert::same(2, $stream->position);
+
+	$stream->position = 3;
+	Assert::exception(function () use ($stream) {
+		$stream->consumeToken();
+	}, Nette\Tokenizer\Exception::class, 'Unexpected end of string');
+	Assert::same(3, $stream->position);
+
+	$stream->position = 3;
+	Assert::exception(function () use ($stream) {
+		$stream->consumeToken(T_STRING, T_DNUMBER, T_WHITESPACE);
+	}, Nette\Tokenizer\Exception::class, 'Unexpected end of string');
+	Assert::same(3, $stream->position);
+});

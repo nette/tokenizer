@@ -20,7 +20,7 @@ class TokenIterator
 	public $position = -1;
 
 	/** @var array */
-	public $ignored = array();
+	public $ignored = [];
 
 
 	/**
@@ -192,7 +192,7 @@ class TokenIterator
 	 */
 	protected function scan($wanted, $onlyFirst, $advance, $strings = false, $until = false, $prev = false)
 	{
-		$res = $onlyFirst ? null : ($strings ? '' : array());
+		$res = $onlyFirst ? null : ($strings ? '' : []);
 		$pos = $this->position + ($prev ? -1 : 1);
 		do {
 			if (!isset($this->tokens[$pos])) {

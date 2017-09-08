@@ -24,11 +24,11 @@ Let's create a simple tokenizer that separates strings to numbers, whitespaces a
 ```php
 use Nette\Utils\Tokenizer;
 
-$tokenizer = new Tokenizer(array(
+$tokenizer = new Tokenizer([
 	T_DNUMBER => '\d+',
 	T_WHITESPACE => '\s+',
 	T_STRING => '\w+',
-));
+]);
 ```
 
 *Hint: In case you are wondering where the T_ constants come from, they are [internal type](http://php.net/manual/tokens.php) used for parsing code. They cover most of the common token names we usually need. Keep in mind their value is not guaranteed so don't use numbers for comparison.*
@@ -42,11 +42,11 @@ $tokens = $tokenizer->tokenize("say \n123");
 The resulting array of tokens would look like this.
 
 ```php
-array(
-	array('say', 0, T_STRING),
-	array(" \n", 3, T_WHITESPACE),
-	array('123', 5, T_DNUMBER),
-)
+[
+	['say', 0, T_STRING],
+	[" \n", 3, T_WHITESPACE],
+	['123', 5, T_DNUMBER],
+]
 ```
 
 Also, you should use constants from `Tokenizer` to access the individual values or expand them using `list()`.
@@ -129,18 +129,18 @@ class Parser
 
 	public function __construct()
 	{
-		$this->tokenizer = new Tokenizer(array(
+		$this->tokenizer = new Tokenizer([
 			self::T_AT => '@',
 			self::T_WHITESPACE => '\s+',
 			self::T_STRING => '\w+',
-		));
+		]);
 	}
 
 	public function parse($input)
 	{
 		$this->iterator = new TokenIterator($this->tokenizer->tokenize($input));
 
-		$result = array();
+		$result = [];
 		while ($this->iterator->nextToken()) {
 			if ($this->iterator->isCurrent(self::T_AT)) {
 				$result[] = $this->parseAnnotation();

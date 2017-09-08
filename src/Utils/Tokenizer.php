@@ -16,7 +16,8 @@ namespace Nette\Utils;
  */
 class Tokenizer
 {
-	const VALUE = 0,
+	public const
+		VALUE = 0,
 		OFFSET = 1,
 		TYPE = 2;
 
@@ -75,7 +76,7 @@ class Tokenizer
 		}
 
 		if (isset($errorOffset)) {
-			list($line, $col) = $this->getCoordinates($input, $errorOffset);
+			[$line, $col] = $this->getCoordinates($input, $errorOffset);
 			$token = str_replace("\n", '\n', substr($input, $errorOffset, 10));
 			throw new TokenizerException("Unexpected '$token' on line $line, column $col.");
 		}

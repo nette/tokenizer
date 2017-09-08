@@ -28,8 +28,8 @@ jobs:
                 - travis_retry composer create-project nette/coding-standard temp/coding-standard --no-progress
 
             script:
-                - php temp/code-checker/src/code-checker.php --short-arrays
-                - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php56.neon
+                - php temp/code-checker/src/code-checker.php
+                - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php71.neon
 
 
         -   stage: Code Coverage

@@ -56,7 +56,7 @@ class Tokenizer
 			$len += strlen($token->value);
 		}
 		if ($len !== strlen($input)) {
-			list($line, $col) = $this->getCoordinates($input, $len);
+			[$line, $col] = $this->getCoordinates($input, $len);
 			$token = str_replace("\n", '\n', substr($input, $len, 10));
 			throw new Exception("Unexpected '$token' on line $line, column $col.");
 		}

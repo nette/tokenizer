@@ -39,9 +39,7 @@ class Stream
 	 */
 	public function currentToken(): ?Token
 	{
-		return isset($this->tokens[$this->position])
-			? $this->tokens[$this->position]
-			: null;
+		return $this->tokens[$this->position] ?? null;
 	}
 
 
@@ -50,9 +48,7 @@ class Stream
 	 */
 	public function currentValue(): ?string
 	{
-		return isset($this->tokens[$this->position])
-			? $this->tokens[$this->position]->value
-			: null;
+		return $this->tokens[$this->position]->value ?? null;
 	}
 
 

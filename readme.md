@@ -7,17 +7,29 @@ Nette Tokenizer
 [![Latest Stable Version](https://poser.pugx.org/nette/tokenizer/v/stable)](https://github.com/nette/tokenizer/releases)
 [![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/tokenizer/blob/master/license.md)
 
+
+Introduction
+------------
+
 Tokenizer is a tool that uses regular expressions to split given string into tokens. What the hell is that good for, you might ask? Well, you can create your own languages!
 
-Install it using Composer:
+Documentation can be found on the [website](https://doc.nette.org/tokenizer).
+
+
+Installation
+------------
+
+The recommended way to install is via Composer:
 
 ```
 composer require nette/tokenizer
 ```
 
-The release 2.3 requires PHP version 5.4 or newer (is compatible with PHP up to 7.2). The release 3.0 requires PHP 7.1.
+The release 2.3 requires PHP version 5.4 and supports PHP up to 7.2. The release 3.0 requires PHP 7.1.
 
-## String tokenization
+
+Usage
+-----
 
 Let's create a simple tokenizer that separates strings to numbers, whitespaces and letters.
 
@@ -61,7 +73,8 @@ echo $firstToken->offset; // position in string: 0
 Simple, isn't it?
 
 
-## Processing the tokens
+Processing the tokens
+---------------------
 
 Now we know how to create tokens from string. Let's effectively process them using `Nette\Tokenizer\Stream`. It has a lot of really awesome methods if you need to traverse tokens!
 
@@ -184,7 +197,8 @@ array (2)
       name => "Nette"
 ```
 
-## Stream methods
+Stream methods
+--------------
 
 The stream can return current token using method `currentToken()` or only it's value using `currentValue()`.
 

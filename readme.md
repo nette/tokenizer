@@ -15,6 +15,8 @@ Tokenizer is a tool that uses regular expressions to split given string into tok
 
 Documentation can be found on the [website](https://doc.nette.org/tokenizer).
 
+If you like Nette, **[please make a donation now](https://nette.org/donate)**. Thank you!
+
 
 Installation
 ------------

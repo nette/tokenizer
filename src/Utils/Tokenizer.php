@@ -29,8 +29,8 @@ class Tokenizer
 
 
 	/**
-	 * @param  array of [(int|string) token type => (string) pattern]
-	 * @param  string  regular expression flags
+	 * @param  array  $patterns  of [(int|string) token type => (string) pattern]
+	 * @param  string  $flags  regular expression flags
 	 */
 	public function __construct(array $patterns, string $flags = '')
 	{

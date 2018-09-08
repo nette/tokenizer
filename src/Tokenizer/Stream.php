@@ -26,7 +26,7 @@ class Stream
 
 
 	/**
-	 * @param  Token[]
+	 * @param  Token[]  $tokens
 	 */
 	public function __construct(array $tokens)
 	{
@@ -54,7 +54,7 @@ class Stream
 
 	/**
 	 * Returns next token.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 */
 	public function nextToken(...$args): ?Token
 	{
@@ -64,7 +64,7 @@ class Stream
 
 	/**
 	 * Returns next token value.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 */
 	public function nextValue(...$args): ?string
 	{
@@ -74,7 +74,7 @@ class Stream
 
 	/**
 	 * Returns all next tokens.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 * @return Token[]
 	 */
 	public function nextAll(...$args): array
@@ -85,7 +85,7 @@ class Stream
 
 	/**
 	 * Returns all next tokens until it sees a given token type or value.
-	 * @param  int|string  token type or value to stop before (required)
+	 * @param  int|string  ...$args  token type or value to stop before (required)
 	 * @return Token[]
 	 */
 	public function nextUntil(...$args): array
@@ -96,7 +96,7 @@ class Stream
 
 	/**
 	 * Returns next token or throws exception.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 * @throws Exception
 	 */
 	public function consumeToken(...$args): Token
@@ -124,7 +124,7 @@ class Stream
 
 	/**
 	 * Returns next token value or throws exception.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 * @throws Exception
 	 */
 	public function consumeValue(...$args): string
@@ -135,7 +135,7 @@ class Stream
 
 	/**
 	 * Returns concatenation of all next token values.
-	 * @param  int|string  token type or value to be joined
+	 * @param  int|string  ...$args  token type or value to be joined
 	 */
 	public function joinAll(...$args): string
 	{
@@ -145,7 +145,7 @@ class Stream
 
 	/**
 	 * Returns concatenation of all next tokens until it sees a given token type or value.
-	 * @param  int|string  token type or value to stop before (required)
+	 * @param  int|string  ...$args  token type or value to stop before (required)
 	 */
 	public function joinUntil(...$args): string
 	{
@@ -155,7 +155,7 @@ class Stream
 
 	/**
 	 * Checks the current token.
-	 * @param  int|string  token type or value
+	 * @param  int|string  ...$args  token type or value
 	 */
 	public function isCurrent(...$args): bool
 	{
@@ -170,7 +170,7 @@ class Stream
 
 	/**
 	 * Checks the next token existence.
-	 * @param  int|string  token type or value
+	 * @param  int|string  ...$args  token type or value
 	 */
 	public function isNext(...$args): bool
 	{
@@ -180,7 +180,7 @@ class Stream
 
 	/**
 	 * Checks the previous token existence.
-	 * @param  int|string  token type or value
+	 * @param  int|string  ...$args  token type or value
 	 */
 	public function isPrev(...$args): bool
 	{

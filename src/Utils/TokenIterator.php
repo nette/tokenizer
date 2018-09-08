@@ -27,7 +27,7 @@ class TokenIterator
 
 
 	/**
-	 * @param array[]
+	 * @param array[]  $tokens
 	 */
 	public function __construct(array $tokens)
 	{
@@ -56,7 +56,7 @@ class TokenIterator
 
 	/**
 	 * Returns next token.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 */
 	public function nextToken(...$args): ?array
 	{
@@ -66,7 +66,7 @@ class TokenIterator
 
 	/**
 	 * Returns next token value.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 */
 	public function nextValue(...$args): ?string
 	{
@@ -76,7 +76,7 @@ class TokenIterator
 
 	/**
 	 * Returns all next tokens.
-	 * @param  int|string  desired token type or value
+	 * @param  int|string  ...$args  desired token type or value
 	 * @return array[]
 	 */
 	public function nextAll(...$args): array
@@ -87,7 +87,7 @@ class TokenIterator
 
 	/**
 	 * Returns all next tokens until it sees a given token type or value.
-	 * @param  int|string  token type or value to stop before (required)
+	 * @param  int|string  ...$args  token type or value to stop before (required)
 	 * @return array[]
 	 */
 	public function nextUntil(...$args): array
@@ -98,7 +98,7 @@ class TokenIterator
 
 	/**
 	 * Returns concatenation of all next token values.
-	 * @param  int|string  token type or value to be joined
+	 * @param  int|string  ...$args  token type or value to be joined
 	 */
 	public function joinAll(...$args): string
 	{
@@ -108,7 +108,7 @@ class TokenIterator
 
 	/**
 	 * Returns concatenation of all next tokens until it sees a given token type or value.
-	 * @param  int|string  token type or value to stop before (required)
+	 * @param  int|string  ...$args  token type or value to stop before (required)
 	 */
 	public function joinUntil(...$args): string
 	{
@@ -118,7 +118,7 @@ class TokenIterator
 
 	/**
 	 * Checks the current token.
-	 * @param  int|string  token type or value
+	 * @param  int|string  ...$args  token type or value
 	 */
 	public function isCurrent(...$args): bool
 	{
@@ -133,7 +133,7 @@ class TokenIterator
 
 	/**
 	 * Checks the next token existence.
-	 * @param  int|string  token type or value
+	 * @param  int|string  ...$args  token type or value
 	 */
 	public function isNext(...$args): bool
 	{
@@ -143,7 +143,7 @@ class TokenIterator
 
 	/**
 	 * Checks the previous token existence.
-	 * @param  int|string  token type or value
+	 * @param  int|string  ...$args  token type or value
 	 */
 	public function isPrev(...$args): bool
 	{

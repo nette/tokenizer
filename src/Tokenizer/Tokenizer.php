@@ -41,7 +41,7 @@ class Tokenizer
 	{
 		preg_match_all($this->re, $input, $tokens, PREG_SET_ORDER);
 		if (preg_last_error()) {
-			throw new TokenizerException(array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]);
+			throw new Exception(array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]);
 		}
 		$len = 0;
 		$count = count($this->types);

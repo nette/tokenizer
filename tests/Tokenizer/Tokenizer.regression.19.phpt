@@ -30,21 +30,21 @@ $expectedTokens = [
 
 
 // process tokens with while() and nextToken()
-(static function() use ($expectedTokens, $stream) {
+test(function() use ($expectedTokens, $stream) {
 	$stream->reset();
 	$accumulator = [];
 	while($token = $stream->nextToken()) {
 		$accumulator[] = $token;
 	}
 	Assert::equal($accumulator, $expectedTokens);
-})();
+});
 
 
 
 
 
 // reading with currentToken(), moving with nextToken()
-(static function() use ($expectedTokens, $stream) {
+test(function() use ($expectedTokens, $stream) {
 	$stream->reset();
 
 	// position -1
@@ -65,11 +65,11 @@ $expectedTokens = [
 	// position 3
 	$stream->nextToken();
 	Assert::null($stream->currentToken());
-})();
+});
 
 // process token with while() and currentToken()
 // (more real world use-case, does the same thing like linearized example above)
-(static function() use ($expectedTokens, $stream) {
+test(function() use ($expectedTokens, $stream) {
 	$stream->reset();
 	$accumulator = [];
 	$stream->nextToken();
@@ -78,5 +78,5 @@ $expectedTokens = [
 		$stream->nextToken();
 	}
 	Assert::equal($accumulator, $expectedTokens);
-})();
+});
 

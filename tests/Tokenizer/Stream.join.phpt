@@ -133,7 +133,7 @@ test(function () {
 	Assert::exception(function () use ($stream) {
 		$stream->consumeValue();
 	}, Nette\Tokenizer\Exception::class, 'Unexpected end of string');
-	Assert::same(3, $stream->position);
+	Assert::same(4, $stream->position);
 
 	$stream->position = 3;
 	Assert::exception(function () use ($stream) {

@@ -105,17 +105,17 @@ test(function () {
 	$stream->position = 2;
 	Assert::null($stream->nextToken());
 	Assert::null($stream->nextToken());
-	Assert::same(2, $stream->position);
+	Assert::same(3, $stream->position);
 
 	$stream->position = 2;
 	Assert::null($stream->nextToken());
 	Assert::null($stream->nextToken(T_STRING, T_DNUMBER, T_WHITESPACE));
-	Assert::same(2, $stream->position);
+	Assert::same(3, $stream->position);
 
 	$stream->position = 2;
 	Assert::same([], $stream->nextAll());
 	Assert::same([], $stream->nextAll(T_STRING, T_DNUMBER, T_WHITESPACE));
-	Assert::same(2, $stream->position);
+	Assert::same(3, $stream->position);
 
 	$stream->position = 2;
 	Assert::same([], $stream->nextUntil(T_STRING, T_DNUMBER, T_WHITESPACE));
@@ -154,7 +154,7 @@ test(function () {
 	Assert::exception(function () use ($stream) {
 		$stream->consumeToken();
 	}, Nette\Tokenizer\Exception::class, 'Unexpected end of string');
-	Assert::same(3, $stream->position);
+	Assert::same(4, $stream->position);
 
 	$stream->position = 3;
 	Assert::exception(function () use ($stream) {

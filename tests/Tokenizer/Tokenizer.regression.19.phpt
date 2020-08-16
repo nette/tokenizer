@@ -29,8 +29,7 @@ $expectedTokens = [
 
 
 
-// process tokens with while() and nextToken()
-test(function () use ($expectedTokens, $stream) {
+test('process tokens with while() and nextToken()', function () use ($expectedTokens, $stream) {
 	$stream->reset();
 	$accumulator = [];
 	while ($token = $stream->nextToken()) {
@@ -43,8 +42,7 @@ test(function () use ($expectedTokens, $stream) {
 
 
 
-// reading with currentToken(), moving with nextToken()
-test(function () use ($expectedTokens, $stream) {
+test('reading with currentToken(), moving with nextToken()', function () use ($expectedTokens, $stream) {
 	$stream->reset();
 
 	// position -1
@@ -68,8 +66,7 @@ test(function () use ($expectedTokens, $stream) {
 });
 
 // process token with while() and currentToken()
-// (more real world use-case, does the same thing like linearized example above)
-test(function () use ($expectedTokens, $stream) {
+test('(more real world use-case, does the same thing like linearized example above)', function () use ($expectedTokens, $stream) {
 	$stream->reset();
 	$accumulator = [];
 	$stream->nextToken();

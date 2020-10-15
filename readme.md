@@ -2,7 +2,7 @@ Nette Tokenizer
 ===============
 
 [![Downloads this Month](https://img.shields.io/packagist/dm/nette/tokenizer.svg)](https://packagist.org/packages/nette/tokenizer)
-[![Build Status](https://travis-ci.org/nette/tokenizer.svg?branch=master)](https://travis-ci.org/nette/tokenizer)
+[![Tests](https://github.com/nette/tokenizer/workflows/Tests/badge.svg?branch=master)](https://github.com/nette/tokenizer/actions)
 [![Coverage Status](https://coveralls.io/repos/github/nette/tokenizer/badge.svg?branch=master)](https://coveralls.io/github/nette/tokenizer?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/nette/tokenizer/v/stable)](https://github.com/nette/tokenizer/releases)
 [![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/tokenizer/blob/master/license.md)

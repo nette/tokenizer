@@ -211,8 +211,14 @@ class Stream
 	 * Looks for (first) (not) wanted tokens.
 	 * @return mixed
 	 */
-	protected function scan(array $wanted, bool $onlyFirst, bool $advance, bool $strings = false, bool $until = false, bool $prev = false)
-	{
+	protected function scan(
+		array $wanted,
+		bool $onlyFirst,
+		bool $advance,
+		bool $strings = false,
+		bool $until = false,
+		bool $prev = false
+	) {
 		$res = $onlyFirst ? null : ($strings ? '' : []);
 		$pos = $this->position + ($prev ? -1 : 1);
 		do {
@@ -224,7 +230,13 @@ class Stream
 			}
 
 			$token = $this->tokens[$pos];
-			if (!$wanted || (in_array($token->value, $wanted, true) || in_array($token->type, $wanted, true)) ^ $until) {
+			if (
+				!$wanted
+				|| (
+					in_array($token->value, $wanted, true)
+					|| in_array($token->type, $wanted, true)
+				) ^ $until
+			) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();
 				}

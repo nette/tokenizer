@@ -31,7 +31,7 @@ class TokenIterator
 	 */
 	public function __construct(array $tokens)
 	{
-		trigger_error(__CLASS__ . ' is deprecated, use similar Nette\Tokenizer\Stream', E_USER_DEPRECATED);
+		trigger_error(self::class . ' is deprecated, use similar Nette\Tokenizer\Stream', E_USER_DEPRECATED);
 		$this->tokens = $tokens;
 	}
 
@@ -174,8 +174,14 @@ class TokenIterator
 	 * Looks for (first) (not) wanted tokens.
 	 * @return mixed
 	 */
-	protected function scan(array $wanted, bool $onlyFirst, bool $advance, bool $strings = false, bool $until = false, bool $prev = false)
-	{
+	protected function scan(
+		array $wanted,
+		bool $onlyFirst,
+		bool $advance,
+		bool $strings = false,
+		bool $until = false,
+		bool $prev = false
+	) {
 		$res = $onlyFirst ? null : ($strings ? '' : []);
 		$pos = $this->position + ($prev ? -1 : 1);
 		do {
@@ -188,7 +194,13 @@ class TokenIterator
 
 			$token = $this->tokens[$pos];
 			$type = $token[Tokenizer::TYPE] ?? null;
-			if (!$wanted || (in_array($token[Tokenizer::VALUE], $wanted, true) || in_array($type, $wanted, true)) ^ $until) {
+			if (
+				!$wanted
+				|| (
+					in_array($token[Tokenizer::VALUE], $wanted, true)
+					|| in_array($type, $wanted, true)
+				) ^ $until
+			) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();
 				}

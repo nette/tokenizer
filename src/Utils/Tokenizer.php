@@ -34,7 +34,7 @@ class Tokenizer
 	 */
 	public function __construct(array $patterns, string $flags = '')
 	{
-		trigger_error(__CLASS__ . ' is deprecated, use similar Nette\Tokenizer\Tokenizer', E_USER_DEPRECATED);
+		trigger_error(self::class . ' is deprecated, use similar Nette\Tokenizer\Tokenizer', E_USER_DEPRECATED);
 		$this->re = '~(' . implode(')|(', $patterns) . ')~A' . $flags;
 		$keys = array_keys($patterns);
 		$this->types = $keys === range(0, count($patterns) - 1) ? false : $keys;
@@ -56,14 +56,16 @@ class Tokenizer
 				for ($i = 1; $i <= $count; $i++) {
 					if (!isset($match[$i])) {
 						break;
-					} elseif ($match[$i] != null) {
+					} elseif ($match[$i] !== '') {
 						$type = $this->types[$i - 1];
 						break;
 					}
 				}
+
 				$match = [self::VALUE => $match[0], self::OFFSET => $len, self::TYPE => $type];
 				$len += strlen($match[self::VALUE]);
 			}
+
 			if ($len !== strlen($input)) {
 				$errorOffset = $len;
 			}

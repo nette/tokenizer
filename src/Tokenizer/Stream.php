@@ -109,6 +109,7 @@ class Stream
 		while (($next = $this->tokens[$pos] ?? null) && in_array($next->type, $this->ignored, true)) {
 			$pos++; // skip ignored
 		}
+
 		if (!$next) {
 			throw new Exception('Unexpected end of string');
 		}
@@ -117,6 +118,7 @@ class Stream
 		do {
 			$s = $this->tokens[$pos]->value . $s;
 		} while ($pos--);
+
 		[$line, $col] = Tokenizer::getCoordinates($s, $next->offset);
 		throw new Exception("Unexpected '$next->value' on line $line, column $col.");
 	}
@@ -162,6 +164,7 @@ class Stream
 		if (!isset($this->tokens[$this->position])) {
 			return false;
 		}
+
 		$token = $this->tokens[$this->position];
 		return in_array($token->value, $args, true)
 			|| in_array($token->type, $args, true);
@@ -211,8 +214,14 @@ class Stream
 	 * Looks for (first) (not) wanted tokens.
 	 * @return mixed
 	 */
-	protected function scan(array $wanted, bool $onlyFirst, bool $advance, bool $strings = false, bool $until = false, bool $prev = false)
-	{
+	protected function scan(
+		array $wanted,
+		bool $onlyFirst,
+		bool $advance,
+		bool $strings = false,
+		bool $until = false,
+		bool $prev = false
+	) {
 		$res = $onlyFirst ? null : ($strings ? '' : []);
 		$pos = $this->position + ($prev ? -1 : 1);
 		do {
@@ -220,11 +229,18 @@ class Stream
 				if (!$wanted && $advance && !$prev && $pos <= count($this->tokens)) {
 					$this->next();
 				}
+
 				return $res;
 			}
 
 			$token = $this->tokens[$pos];
-			if (!$wanted || (in_array($token->value, $wanted, true) || in_array($token->type, $wanted, true)) ^ $until) {
+			if (
+				!$wanted
+				|| (
+					in_array($token->value, $wanted, true)
+					|| in_array($token->type, $wanted, true)
+				) ^ $until
+			) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();
 				}
@@ -236,10 +252,10 @@ class Stream
 				} else {
 					$res[] = $token;
 				}
-
 			} elseif ($until || !in_array($token->type, $this->ignored, true)) {
 				return $res;
 			}
+
 			$pos += $prev ? -1 : 1;
 		} while (true);
 	}

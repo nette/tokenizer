@@ -43,6 +43,7 @@ class Tokenizer
 		if (preg_last_error()) {
 			throw new Exception(array_flip(get_defined_constants(true)['pcre'])[preg_last_error()]);
 		}
+
 		$len = 0;
 		$count = count($this->types);
 		foreach ($tokens as &$token) {
@@ -50,19 +51,22 @@ class Tokenizer
 			for ($i = 1; $i <= $count; $i++) {
 				if (!isset($token[$i])) {
 					break;
-				} elseif ($token[$i] != null) {
+				} elseif ($token[$i] !== '') {
 					$type = $this->types[$i - 1];
 					break;
 				}
 			}
+
 			$token = new Token($token[0], $type, $len);
 			$len += strlen($token->value);
 		}
+
 		if ($len !== strlen($input)) {
 			[$line, $col] = $this->getCoordinates($input, $len);
 			$token = str_replace("\n", '\n', substr($input, $len, 10));
 			throw new Exception("Unexpected '$token' on line $line, column $col.");
 		}
+
 		return new Stream($tokens);
 	}
 

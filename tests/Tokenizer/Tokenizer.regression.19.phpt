@@ -35,6 +35,7 @@ test('process tokens with while() and nextToken()', function () use ($expectedTo
 	while ($token = $stream->nextToken()) {
 		$accumulator[] = $token;
 	}
+
 	Assert::equal($accumulator, $expectedTokens);
 });
 
@@ -74,5 +75,6 @@ test('(more real world use-case, does the same thing like linearized example abo
 		$accumulator[] = $token;
 		$stream->nextToken();
 	}
+
 	Assert::equal($accumulator, $expectedTokens);
 });

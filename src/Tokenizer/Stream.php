@@ -16,13 +16,11 @@ namespace Nette\Tokenizer;
 class Stream
 {
 	/** @var Token[] */
-	public $tokens;
+	public array $tokens;
 
-	/** @var int */
-	public $position = -1;
+	public int $position = -1;
 
-	/** @var array */
-	public $ignored = [];
+	public array $ignored = [];
 
 
 	/**

@@ -15,11 +15,9 @@ namespace Nette\Tokenizer;
  */
 class Tokenizer
 {
-	/** @var string */
-	private $re;
+	private string $re;
 
-	/** @var array */
-	private $types;
+	private array $types;
 
 
 	/**

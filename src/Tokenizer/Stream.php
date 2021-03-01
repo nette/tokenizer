@@ -54,7 +54,7 @@ class Stream
 	 * Returns next token.
 	 * @param  int|string  ...$args  desired token type or value
 	 */
-	public function nextToken(...$args): ?Token
+	public function nextToken(int|string ...$args): ?Token
 	{
 		return $this->scan($args, true, true); // onlyFirst, advance
 	}
@@ -64,7 +64,7 @@ class Stream
 	 * Returns next token value.
 	 * @param  int|string  ...$args  desired token type or value
 	 */
-	public function nextValue(...$args): ?string
+	public function nextValue(int|string ...$args): ?string
 	{
 		return $this->scan($args, true, true, true); // onlyFirst, advance, strings
 	}
@@ -75,7 +75,7 @@ class Stream
 	 * @param  int|string  ...$args  desired token type or value
 	 * @return Token[]
 	 */
-	public function nextAll(...$args): array
+	public function nextAll(int|string ...$args): array
 	{
 		return $this->scan($args, false, true); // advance
 	}
@@ -86,7 +86,7 @@ class Stream
 	 * @param  int|string  ...$args  token type or value to stop before (required)
 	 * @return Token[]
 	 */
-	public function nextUntil(...$args): array
+	public function nextUntil(int|string ...$args): array
 	{
 		return $this->scan($args, false, true, false, true); // advance, until
 	}
@@ -97,7 +97,7 @@ class Stream
 	 * @param  int|string  ...$args  desired token type or value
 	 * @throws Exception
 	 */
-	public function consumeToken(...$args): Token
+	public function consumeToken(int|string ...$args): Token
 	{
 		if ($token = $this->scan($args, true, true)) { // onlyFirst, advance
 			return $token;
@@ -125,7 +125,7 @@ class Stream
 	 * @param  int|string  ...$args  desired token type or value
 	 * @throws Exception
 	 */
-	public function consumeValue(...$args): string
+	public function consumeValue(int|string ...$args): string
 	{
 		return $this->consumeToken(...$args)->value;
 	}
@@ -135,7 +135,7 @@ class Stream
 	 * Returns concatenation of all next token values.
 	 * @param  int|string  ...$args  token type or value to be joined
 	 */
-	public function joinAll(...$args): string
+	public function joinAll(int|string ...$args): string
 	{
 		return $this->scan($args, false, true, true); // advance, strings
 	}
@@ -145,7 +145,7 @@ class Stream
 	 * Returns concatenation of all next tokens until it sees a given token type or value.
 	 * @param  int|string  ...$args  token type or value to stop before (required)
 	 */
-	public function joinUntil(...$args): string
+	public function joinUntil(int|string ...$args): string
 	{
 		return $this->scan($args, false, true, true, true); // advance, strings, until
 	}
@@ -155,7 +155,7 @@ class Stream
 	 * Checks the current token.
 	 * @param  int|string  ...$args  token type or value
 	 */
-	public function isCurrent(...$args): bool
+	public function isCurrent(int|string ...$args): bool
 	{
 		if (!isset($this->tokens[$this->position])) {
 			return false;
@@ -170,7 +170,7 @@ class Stream
 	 * Checks the next token existence.
 	 * @param  int|string  ...$args  token type or value
 	 */
-	public function isNext(...$args): bool
+	public function isNext(int|string ...$args): bool
 	{
 		return (bool) $this->scan($args, true, false); // onlyFirst
 	}
@@ -180,16 +180,13 @@ class Stream
 	 * Checks the previous token existence.
 	 * @param  int|string  ...$args  token type or value
 	 */
-	public function isPrev(...$args): bool
+	public function isPrev(int|string ...$args): bool
 	{
 		return (bool) $this->scan($args, true, false, false, false, true); // onlyFirst, prev
 	}
 
 
-	/**
-	 * @return static
-	 */
-	public function reset(): self
+	public function reset(): static
 	{
 		$this->position = -1;
 		return $this;
@@ -207,7 +204,6 @@ class Stream
 
 	/**
 	 * Looks for (first) (not) wanted tokens.
-	 * @return mixed
 	 */
 	protected function scan(
 		array $wanted,
@@ -216,7 +212,7 @@ class Stream
 		bool $strings = false,
 		bool $until = false,
 		bool $prev = false,
-	) {
+	): mixed {
 		$res = $onlyFirst ? null : ($strings ? '' : []);
 		$pos = $this->position + ($prev ? -1 : 1);
 		do {

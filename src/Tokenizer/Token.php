@@ -15,17 +15,10 @@ namespace Nette\Tokenizer;
  */
 class Token
 {
-	public string $value;
-
-	public int|string $type;
-
-	public int $offset;
-
-
-	public function __construct(string $value, $type, int $offset)
-	{
-		$this->value = $value;
-		$this->type = $type;
-		$this->offset = $offset;
+	public function __construct(
+		public string $value,
+		public int|string $type,
+		public int $offset,
+	) {
 	}
 }

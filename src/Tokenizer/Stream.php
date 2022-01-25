@@ -161,13 +161,8 @@ class Stream
 	 */
 	public function isCurrent(...$args): bool
 	{
-		if (!isset($this->tokens[$this->position])) {
-			return false;
-		}
-
-		$token = $this->tokens[$this->position];
-		return in_array($token->value, $args, true)
-			|| in_array($token->type, $args, true);
+		$token = $this->tokens[$this->position] ?? null;
+		return $token && $token->is(...$args);
 	}
 
 
@@ -236,10 +231,7 @@ class Stream
 			$token = $this->tokens[$pos];
 			if (
 				!$wanted
-				|| (
-					in_array($token->value, $wanted, true)
-					|| in_array($token->type, $wanted, true)
-				) ^ $until
+				|| $token->is(...$wanted) ^ $until
 			) {
 				while ($advance && !$prev && $pos > $this->position) {
 					$this->next();
@@ -252,7 +244,7 @@ class Stream
 				} else {
 					$res[] = $token;
 				}
-			} elseif ($until || !in_array($token->type, $this->ignored, true)) {
+			} elseif ($until || !$token->is(...$this->ignored)) {
 				return $res;
 			}
 

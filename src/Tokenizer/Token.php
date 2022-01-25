@@ -31,4 +31,12 @@ class Token
 		$this->type = $type;
 		$this->offset = $offset;
 	}
+
+
+	/** @param  int|string  ...$args */
+	public function is(...$args): bool
+	{
+		return in_array($this->value, $args, true)
+			|| in_array($this->type, $args, true);
+	}
 }

@@ -1,5 +1,5 @@
-Nette Tokenizer
-===============
+Nette Tokenizer [DISCONTINUED]
+==============================
 
 [![Downloads this Month](https://img.shields.io/packagist/dm/nette/tokenizer.svg)](https://packagist.org/packages/nette/tokenizer)
 [![Tests](https://github.com/nette/tokenizer/workflows/Tests/badge.svg?branch=master)](https://github.com/nette/tokenizer/actions)
